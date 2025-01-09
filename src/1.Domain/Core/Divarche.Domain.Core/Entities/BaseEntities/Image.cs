@@ -1,6 +1,6 @@
-﻿using Divarche.Domain.Core.Entities.Advertisement;
+﻿using Divarcheh.Domain.Core.Entities.Advertisement;
 
-namespace Divarche.Domain.Core.Entities.BaseEntities;
+namespace Divarcheh.Domain.Core.Entities.BaseEntities;
 
 public class Image
 {
@@ -11,7 +11,7 @@ public class Image
 
     #region NavigationProperties
     public int AdvertisementId { get; set; }
-    public Advertisement Advertisement { get; set; }
+    public Advertisement.Advertisement Advertisement { get; set; }
 
     public int CategoryId { get; set; }
     public Category Category { get; set; }

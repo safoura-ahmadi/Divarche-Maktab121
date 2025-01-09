@@ -1,4 +1,4 @@
-﻿namespace Divarche.Domain.Core.Entities.BaseEntities;
+﻿namespace Divarcheh.Domain.Core.Entities.BaseEntities;
 
 public class City
 {
@@ -8,7 +8,7 @@ public class City
     #endregion
 
     #region NavigationProperties
-    public List<User> Users { get; set; }
+    public List<User.User> Users { get; set; }
     public List<Advertisement.Advertisement> Advertisements { get; set; }
     #endregion
 }

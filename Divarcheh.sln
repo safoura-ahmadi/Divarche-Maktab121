@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DD3410C3-9C64-4150-92EF-C94DD5D1646E}"
 EndProject
@@ -11,11 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9345E8B7-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E23D6EC2-21E5-4E39-89E0-E06E4FC82990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarche.Domain.Core", "src\1.Domain\Core\Divarche.Domain.Core\Divarche.Domain.Core.csproj", "{D03C10EC-AE95-484F-AC47-6A086CCA4074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarcheh.Domain.Core", "src\1.Domain\Core\Divarche.Domain.Core\Divarcheh.Domain.Core.csproj", "{D03C10EC-AE95-484F-AC47-6A086CCA4074}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Framework", "0.Framework", "{7A51278D-56DA-4213-B16E-4A7FD6AC705A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "src\0.Framework\Framework\Framework.csproj", "{8BFA5FC4-4BC2-4295-89CB-776BA2C9FBCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Infrastructure", "2.Infrastructure", "{3F7A7051-231B-472E-81C5-E994E03ED53B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarcheh.Infrastructure.EfCore", "src\2.Infrastructure\Divarcheh.Infrastructure.EfCore\Divarcheh.Infrastructure.EfCore.csproj", "{7878E48D-11A5-4ABE-9125-AE2254555255}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Endpoints", "3.Endpoints", "{79FD79F0-5EBA-489F-8033-E092325BF3DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarcheh.Endpoints.RazorPages", "src\3.EndPoints\Divarcheh.Endpoints.RazorPages\Divarcheh.Endpoints.RazorPages.csproj", "{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +39,14 @@ Global
 		{8BFA5FC4-4BC2-4295-89CB-776BA2C9FBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BFA5FC4-4BC2-4295-89CB-776BA2C9FBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BFA5FC4-4BC2-4295-89CB-776BA2C9FBCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7878E48D-11A5-4ABE-9125-AE2254555255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7878E48D-11A5-4ABE-9125-AE2254555255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7878E48D-11A5-4ABE-9125-AE2254555255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7878E48D-11A5-4ABE-9125-AE2254555255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +58,9 @@ Global
 		{D03C10EC-AE95-484F-AC47-6A086CCA4074} = {9345E8B7-AE60-47A9-9B28-417DA94CFA7F}
 		{7A51278D-56DA-4213-B16E-4A7FD6AC705A} = {DD3410C3-9C64-4150-92EF-C94DD5D1646E}
 		{8BFA5FC4-4BC2-4295-89CB-776BA2C9FBCC} = {7A51278D-56DA-4213-B16E-4A7FD6AC705A}
+		{3F7A7051-231B-472E-81C5-E994E03ED53B} = {DD3410C3-9C64-4150-92EF-C94DD5D1646E}
+		{7878E48D-11A5-4ABE-9125-AE2254555255} = {3F7A7051-231B-472E-81C5-E994E03ED53B}
+		{79FD79F0-5EBA-489F-8033-E092325BF3DA} = {DD3410C3-9C64-4150-92EF-C94DD5D1646E}
+		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9} = {79FD79F0-5EBA-489F-8033-E092325BF3DA}
 	EndGlobalSection
 EndGlobal

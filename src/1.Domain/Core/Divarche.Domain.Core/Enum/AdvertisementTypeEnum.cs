@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Divarche.Domain.Core.Enum;
+namespace Divarcheh.Domain.Core.Enum;
 
 public enum AdvertisementTypeEnum
 {

@@ -1,7 +1,8 @@
-﻿using Divarche.Domain.Core.Entities.BaseEntities;
-using Divarche.Domain.Core.Enum;
+﻿using Divarcheh.Domain.Core.Entities.BaseEntities;
+using Divarcheh.Domain.Core.Entities.User;
+using Divarcheh.Domain.Core.Enum;
 
-namespace Divarche.Domain.Core.Entities.Advertisement;
+namespace Divarcheh.Domain.Core.Entities.Advertisement;
 public class Advertisement
 {
     #region Properties
@@ -25,22 +26,10 @@ public class Advertisement
 
     public List<Image> Images { get; set; }
     public User.User User { get; set; }
-    public List<User.User> UserFavoriteAdvertisments { get; set; }
+    public List<UsersFavoriteAdvertisements> UserFavoriteAdvertisments { get; set; }
     public Category Category { get; set; }
     public City City { get; set; }
     public Brand Brand { get; set; }
 
-    #endregion
-}
-
-public class Brand
-{
-    #region Properties
-    public int Id { get; set; }
-    public string Title { get; set; }
-    #endregion
-
-    #region NavigationProperties
-    public List<Advertisement> Advertisements { get; set; }
     #endregion
 }

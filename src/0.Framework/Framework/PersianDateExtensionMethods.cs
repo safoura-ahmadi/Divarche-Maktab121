@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Reflection;
 
-namespace Framework.Utilities
+namespace Framework
 {
     public static class PersianDateExtensionMethods
     {
@@ -28,7 +28,7 @@ namespace Framework.Utilities
                 formatInfo.ShortDatePattern = "yyyy/MM/dd";
                 formatInfo.LongDatePattern = "dddd, dd MMMM,yyyy";
                 formatInfo.FirstDayOfWeek = DayOfWeek.Saturday;
-                System.Globalization.Calendar cal = new PersianCalendar();
+                Calendar cal = new PersianCalendar();
 
                 FieldInfo? fieldInfo = _Culture.GetType().GetField("calendar", BindingFlags.NonPublic | BindingFlags.Instance);
                 if (fieldInfo != null)

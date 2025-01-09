@@ -1,6 +1,6 @@
-﻿using Divarche.Domain.Core.Entities.BaseEntities;
+﻿using Divarcheh.Domain.Core.Entities.BaseEntities;
 
-namespace Divarche.Domain.Core.Entities.User;
+namespace Divarcheh.Domain.Core.Entities.User;
 
 public class User
 {
@@ -16,16 +16,16 @@ public class User
     public DateTime RegisterAt { get; set; }
     public int CityId { get; set; }
     public int RoleId { get; set; }
-    public int ImageId { get; set; }
+    public int? ImageId { get; set; }
 
     #endregion
 
     #region NavigationProperties
 
     public List<Advertisement.Advertisement> UserAdvertisements { get; set; }
-    public List<Advertisement.Advertisement> FavoriteAdvertisements { get; set; }
+    public List<UsersFavoriteAdvertisements> FavoriteAdvertisements { get; set; }
     public City City { get; set; }
     public Role Role { get; set; }
-    public Image Image { get; set; }
+    public Image? Image { get; set; }
     #endregion
 }

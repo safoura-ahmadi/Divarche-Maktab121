@@ -1,4 +1,4 @@
-﻿namespace Divarche.Domain.Core.Entities.User;
+﻿namespace Divarcheh.Domain.Core.Entities.User;
 
 public class Role
 {
