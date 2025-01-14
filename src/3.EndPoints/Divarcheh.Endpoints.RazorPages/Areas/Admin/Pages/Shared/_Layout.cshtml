@@ -1,6 +1,4 @@
 ﻿@using Framework
-@await RenderSectionAsync("Scripts", required: false)
-
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl" class="rtl">
@@ -32,6 +30,9 @@
     <link href="~/AdminTemplate/plugins/morris.js/morris.css" rel="stylesheet">
     <link href="~/AdminTemplate/plugins/persian-datepicker/css/persian-datepicker.css" rel="stylesheet">
     <link href="~/AdminTemplate/css/effects.css" rel="stylesheet">
+    
+    <link href="~/AdminTemplate/plugins/data-table/DataTables-1.10.16/css/jquery.dataTables.css" rel="stylesheet">
+
     <!-- END PAGE CSS -->
 </head>
 <body class="active-ripple theme-darkpurple fix-header sidebar-extra bg-1">
@@ -68,6 +69,7 @@
                         <div class="row">
                             <div class="row">
                                 @RenderBody()
+                              
                             </div>
 
                         </div><!-- /.row -->
@@ -95,8 +97,13 @@
     <script src="~/AdminTemplate/plugins/screenfull/dist/screenfull.min.js"></script>
     <script src="~/AdminTemplate/plugins/iCheck/icheck.min.js"></script>
     <script src="~/AdminTemplate/plugins/switchery/dist/switchery.js"></script>
-    <script src="~/AdminTemplate/js/core.js"></script>
+<script src="~/AdminTemplate/js/core.js"></script>
 
+<!-- BEGIN PAGE JAVASCRIPT -->
+ 
+<!-- END PAGE JAVASCRIPT -->    
+
+@await RenderSectionAsync("Scripts", required: false)
     <!-- BEGIN PAGE JAVASCRIPT -->
     <!-- END PAGE JAVASCRIPT -->
 </body>

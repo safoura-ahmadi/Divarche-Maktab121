@@ -383,11 +383,17 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdvertisementId");
 
                     b.HasIndex("CategoryId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Images", (string)null);
@@ -445,9 +451,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -475,8 +478,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.HasIndex("ImageId");
-
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users", (string)null);
@@ -487,9 +488,11 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             Id = 1,
                             CityId = 1,
                             Email = "Admin@Admin.com",
+                            FirstName = "Masoud",
+                            LastName = "Maleki",
                             Mobile = "09123456789",
                             Password = "123456",
-                            RegisterAt = new DateTime(2025, 1, 9, 23, 45, 57, 556, DateTimeKind.Local).AddTicks(7854),
+                            RegisterAt = new DateTime(2025, 1, 14, 23, 9, 59, 461, DateTimeKind.Local).AddTicks(4677),
                             RoleId = 1,
                             UserName = "Admin"
                         });
@@ -569,9 +572,17 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.User", "User")
+                        .WithOne("Image")
+                        .HasForeignKey("Divarcheh.Domain.Core.Entities.BaseEntities.Image", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Advertisement");
 
                     b.Navigation("Category");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.User", b =>
@@ -582,10 +593,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Divarcheh.Domain.Core.Entities.BaseEntities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
                     b.HasOne("Divarcheh.Domain.Core.Entities.User.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
@@ -593,8 +600,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
-
-                    b.Navigation("Image");
 
                     b.Navigation("Role");
                 });
@@ -655,6 +660,8 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.User", b =>
                 {
                     b.Navigation("FavoriteAdvertisements");
+
+                    b.Navigation("Image");
 
                     b.Navigation("UserAdvertisements");
                 });

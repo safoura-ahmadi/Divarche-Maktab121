@@ -23,6 +23,12 @@ builder.Services.AddSingleton(siteSettings);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserAppService, UserAppService>();
+
+
+builder.Services.AddScoped<IBaseDataRepository, BaseDataRepository>();
+builder.Services.AddScoped<IBaseDataService, BaseDataService>();
+builder.Services.AddScoped<IBaseDataAppService, BaseDataAppService>();
+
 builder.Services.AddScoped<IDashboardAppService, DashboardAppService>();
 
 #endregion

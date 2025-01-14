@@ -16,7 +16,6 @@ public class User
     public DateTime RegisterAt { get; set; }
     public int CityId { get; set; }
     public int RoleId { get; set; }
-    public int? ImageId { get; set; }
 
     #endregion
 
@@ -27,5 +26,6 @@ public class User
     public City City { get; set; }
     public Role Role { get; set; }
     public Image? Image { get; set; }
+    public int ImageId { get; set; }
     #endregion
 }
