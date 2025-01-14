@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Endpoints", "3.Endpoints"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarcheh.Endpoints.RazorPages", "src\3.EndPoints\Divarcheh.Endpoints.RazorPages\Divarcheh.Endpoints.RazorPages.csproj", "{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarcheh.Domain.Services", "src\1.Domain\Services\Divarcheh.Domain.Services\Divarcheh.Domain.Services.csproj", "{23C0A8BB-01DB-4CD1-A641-4EE2EF690104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divarcheh.Domain.AppServices", "src\1.Domain\Services\Divarcheh.Domain.AppServices\Divarcheh.Domain.AppServices.csproj", "{B0BC4940-69FB-4EDA-BD17-7DFDDBD6B3C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C0A8BB-01DB-4CD1-A641-4EE2EF690104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C0A8BB-01DB-4CD1-A641-4EE2EF690104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C0A8BB-01DB-4CD1-A641-4EE2EF690104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C0A8BB-01DB-4CD1-A641-4EE2EF690104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BC4940-69FB-4EDA-BD17-7DFDDBD6B3C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BC4940-69FB-4EDA-BD17-7DFDDBD6B3C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BC4940-69FB-4EDA-BD17-7DFDDBD6B3C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BC4940-69FB-4EDA-BD17-7DFDDBD6B3C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +74,7 @@ Global
 		{7878E48D-11A5-4ABE-9125-AE2254555255} = {3F7A7051-231B-472E-81C5-E994E03ED53B}
 		{79FD79F0-5EBA-489F-8033-E092325BF3DA} = {DD3410C3-9C64-4150-92EF-C94DD5D1646E}
 		{C6F8D4B5-BBDC-4469-BB0C-3AF7A497BDD9} = {79FD79F0-5EBA-489F-8033-E092325BF3DA}
+		{23C0A8BB-01DB-4CD1-A641-4EE2EF690104} = {E23D6EC2-21E5-4E39-89E0-E06E4FC82990}
+		{B0BC4940-69FB-4EDA-BD17-7DFDDBD6B3C2} = {E23D6EC2-21E5-4E39-89E0-E06E4FC82990}
 	EndGlobalSection
 EndGlobal

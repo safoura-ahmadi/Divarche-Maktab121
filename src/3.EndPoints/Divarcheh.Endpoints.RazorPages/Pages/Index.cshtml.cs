@@ -1,3 +1,4 @@
+using Divarcheh.Domain.Core.Entities.Configs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
