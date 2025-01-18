@@ -3,6 +3,7 @@ using Divarcheh.Domain.Core.Dto.User;
 using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.User;
 using Divarcheh.Infrastructure.EfCore.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Divarcheh.Infrastructure.EfCore.Repositories;
 
@@ -29,14 +30,40 @@ public class UserRepository : IUserRepository
                 Email = u.Email,
                 RegisterAt = u.RegisterAt,
                 City = u.City.Title,
-                Role =u.Role.Title,
-                ImagePath = u.Image == null ? null : u.Image.Path
+                Role = u.Role.Title,
+                ImagePath = u.ImagePath
             }).ToList();
 
         return users;
     }
 
-    public bool Create(CreateUserDto model)
+    public UserDto GetById(int id)
+    {
+        var user = _dbContext.Users
+            .Include(x => x.City)
+            .Include(x => x.Role)
+            .FirstOrDefault(x => x.Id == id);
+
+        if (user is null) throw new Exception("user not found");
+
+        var result = new UserDto();
+
+        result.Id = user.Id;
+        result.FirstName = user.FirstName;
+        result.LastName = user.LastName;
+        result.UserName = user.UserName;
+        result.Mobile = user.Mobile;
+        result.Email = user.Email;
+        result.Address = user.Address;
+        result.CityId = user.City.Id;
+        result.RoleId = user.Role.Id;
+        result.ImagePath = user.ImagePath;
+
+        return result;
+
+    }
+
+    public bool Create(UserDto model)
     {
         try
         {
@@ -53,7 +80,7 @@ public class UserRepository : IUserRepository
             user.RegisterAt = DateTime.Now;
             user.Address = model.Address;
 
-            user.Image.Path = model.ImagePath;
+            user.ImagePath = model.ImagePath;
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
@@ -65,5 +92,28 @@ public class UserRepository : IUserRepository
             return false;
         }
 
+    }
+
+    public bool Update(UserDto model)
+    {
+        var user = _dbContext.Users
+            .Include(x => x.City)
+            .Include(x => x.Role)
+            .FirstOrDefault(x => x.Id == model.Id);
+
+        if (user is null)  return false;
+
+        user.FirstName = model.FirstName;
+        user.LastName = model.LastName;
+        user.UserName = model.UserName;
+        user.Mobile = model.Mobile;
+        user.Email = model.Email;
+        user.CityId = model.CityId;
+        user.RoleId = model.RoleId;
+        user.Address = model.Address;
+        user.ImagePath = model.ImagePath ?? user.ImagePath;
+
+        _dbContext.SaveChanges();
+        return true;
     }
 }

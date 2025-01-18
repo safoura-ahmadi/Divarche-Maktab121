@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\2.Infrastructure\Divarcheh.Infrastructure.EfCore\Divarcheh.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\Profiles\" />
+  </ItemGroup>
+
 </Project>

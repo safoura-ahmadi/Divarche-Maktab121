@@ -33,7 +33,8 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,7 +87,8 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegisterAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,9 +158,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Path = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    AdvertisementId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    AdvertisementId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -168,17 +168,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         column: x => x.AdvertisementId,
                         principalTable: "Advertisements",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Images_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Images_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,14 +208,14 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "ParentId", "Title" },
+                columns: new[] { "Id", "ImagePath", "ParentId", "Title" },
                 values: new object[,]
                 {
-                    { 1, null, "ماشین و وسایل نقلیه" },
-                    { 2, null, "دستگاه‌های دیجیتال و گجت‌ها" },
-                    { 3, null, "املاک" },
-                    { 4, null, "وسایل ورزشی" },
-                    { 5, null, " مد و زیبایی" }
+                    { 1, null, null, "ماشین و وسایل نقلیه" },
+                    { 2, null, null, "دستگاه‌های دیجیتال و گجت‌ها" },
+                    { 3, null, null, "املاک" },
+                    { 4, null, null, "وسایل ورزشی" },
+                    { 5, null, null, " مد و زیبایی" }
                 });
 
             migrationBuilder.InsertData(
@@ -272,19 +261,19 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "ParentId", "Title" },
+                columns: new[] { "Id", "ImagePath", "ParentId", "Title" },
                 values: new object[,]
                 {
-                    { 6, 1, "اتومبیل و اتوبوس" },
-                    { 7, 1, "موتور سیکلت و اسکوتر" },
-                    { 8, 3, "رهن خانه" },
-                    { 9, 3, "اجاره خانه و آپارتمان" }
+                    { 6, null, 1, "اتومبیل و اتوبوس" },
+                    { 7, null, 1, "موتور سیکلت و اسکوتر" },
+                    { 8, null, 3, "رهن خانه" },
+                    { 9, null, 3, "اجاره خانه و آپارتمان" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Address", "CityId", "Email", "FirstName", "LastName", "Mobile", "Password", "RegisterAt", "RoleId", "UserName" },
-                values: new object[] { 1, null, 1, "Admin@Admin.com", "Masoud", "Maleki", "09123456789", "123456", new DateTime(2025, 1, 14, 23, 9, 59, 461, DateTimeKind.Local).AddTicks(4677), 1, "Admin" });
+                columns: new[] { "Id", "Address", "CityId", "Email", "FirstName", "ImagePath", "LastName", "Mobile", "Password", "RegisterAt", "RoleId", "UserName" },
+                values: new object[] { 1, null, 1, "Admin@Admin.com", "Masoud", null, "Maleki", "09123456789", "123456", new DateTime(2025, 1, 18, 22, 11, 4, 345, DateTimeKind.Local).AddTicks(7115), 1, "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisements_BrandId",
@@ -315,18 +304,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 name: "IX_Images_AdvertisementId",
                 table: "Images",
                 column: "AdvertisementId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_CategoryId",
-                table: "Images",
-                column: "CategoryId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_UserId",
-                table: "Images",
-                column: "UserId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CityId",

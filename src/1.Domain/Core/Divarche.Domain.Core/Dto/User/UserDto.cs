@@ -1,12 +1,15 @@
 ﻿using Divarcheh.Domain.Core.Entities.Advertisement;
 using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.User;
+using Microsoft.AspNetCore.Http;
 
 namespace Divarcheh.Domain.Core.Dto.User
 {
-    public class CreateUserDto
+    public class UserDto
     {
         #region Properties
+
+        public int? Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string UserName { get; set; }
@@ -16,6 +19,8 @@ namespace Divarcheh.Domain.Core.Dto.User
         public string? Address { get; set; }
         public int CityId { get; set; }
         public int RoleId { get; set; }
+        public IFormFile? ProfileImgFile { get; set; }
+
         public string? ImagePath { get; set; }
         #endregion
 

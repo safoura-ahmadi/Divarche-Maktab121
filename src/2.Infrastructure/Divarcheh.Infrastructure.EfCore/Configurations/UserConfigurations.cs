@@ -21,9 +21,6 @@ namespace Divarcheh.Infrastructure.EfCore.Configurations
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(x => x.Image)
-                .WithOne(x => x.User);
-
             builder.HasData(new List<User>()
             {
                 new User() {Id = 1 , RoleId = 1 ,FirstName = "Masoud" ,LastName = "Maleki" ,UserName = "Admin" , Email = "Admin@Admin.com" ,Mobile = "09123456789",CityId = 1,Password = "123456" ,RegisterAt = DateTime.Now }

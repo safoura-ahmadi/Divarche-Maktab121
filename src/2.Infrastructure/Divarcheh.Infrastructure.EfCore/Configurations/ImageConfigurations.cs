@@ -17,10 +17,6 @@ namespace Divarcheh.Infrastructure.EfCore.Configurations
                 .WithMany(x => x.Images)
                 .HasForeignKey(x => x.AdvertisementId)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasOne(x => x.Category)
-                .WithOne(x => x.Image)
-                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

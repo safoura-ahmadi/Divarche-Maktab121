@@ -14,5 +14,25 @@ public class UserAppService : IUserAppService
 
     public int GetCount() => _userService.GetCount();
     public List<UserSummaryDto> GetAll() => _userService.GetAll();
-    public bool Create(CreateUserDto model) => _userService.Create(model);
+
+    public bool Create(UserDto model)
+    {
+        if (model.ProfileImgFile is not null)
+        {
+            model.ImagePath = _userService.UploadImageProfile(model.ProfileImgFile!);
+        }
+
+        return _userService.Create(model);
+    }
+
+    public UserDto GetById(int id) => _userService.GetById(id);
+    public bool Update(UserDto model)
+    {
+        if (model.ProfileImgFile is not null)
+        {
+            model.ImagePath = _userService.UploadImageProfile(model.ProfileImgFile!);
+        }
+
+        return _userService.Update(model);
+    }
 }

@@ -20,5 +20,12 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         {
             users = _userAppService.GetAll();
         }
+
+
+        [HttpGet]
+        public void OnGetDelete(int id)
+        {
+
+        }
     }
 }

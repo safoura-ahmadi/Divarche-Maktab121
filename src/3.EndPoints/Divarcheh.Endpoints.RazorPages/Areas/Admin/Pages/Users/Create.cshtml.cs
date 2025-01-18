@@ -19,7 +19,7 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         }
 
         [BindProperty]
-        public CreateUserDto User { get; set; }
+        public UserDto User { get; set; }
 
         [BindProperty]
         public List<City> Cities { get; set; }
@@ -33,9 +33,10 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         }
 
 
-        public void OnPost()
+        public IActionResult OnPost()
         {
             _userAppService.Create(User);
+            return RedirectToPage("Index");
         }
     }
 }

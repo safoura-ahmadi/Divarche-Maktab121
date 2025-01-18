@@ -5,5 +5,9 @@ public interface IUserRepository
 {
     int GetCount();
     List<UserSummaryDto> GetAll();
-    bool Create(CreateUserDto model);
+    UserDto GetById(int id);
+    bool Create(UserDto model);
+
+    bool Update(UserDto model);
+
 }

@@ -8,10 +8,11 @@ public class Category
     public int Id { get; set; }
     public string Title { get; set; }
     public int? ParentId { get; set; }
+    public string? ImagePath { get; set; }
+
     #endregion
 
     #region NavigationProperties
-    public Image Image { get; set; }
     public List<Advertisement> Advertisements { get; set; }
     public List<Category> SubCategories { get; set; }
     public Category? ParentCategory { get; set; }

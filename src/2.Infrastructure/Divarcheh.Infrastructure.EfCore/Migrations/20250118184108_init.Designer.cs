@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Divarcheh.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250114194000_init")]
+    [Migration("20250118184108_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -155,6 +155,9 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
@@ -378,26 +381,14 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.Property<int>("AdvertisementId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AdvertisementId");
-
-                    b.HasIndex("CategoryId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Images", (string)null);
                 });
@@ -454,6 +445,9 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -495,7 +489,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             LastName = "Maleki",
                             Mobile = "09123456789",
                             Password = "123456",
-                            RegisterAt = new DateTime(2025, 1, 14, 23, 9, 59, 461, DateTimeKind.Local).AddTicks(4677),
+                            RegisterAt = new DateTime(2025, 1, 18, 22, 11, 4, 345, DateTimeKind.Local).AddTicks(7115),
                             RoleId = 1,
                             UserName = "Admin"
                         });
@@ -569,23 +563,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Divarcheh.Domain.Core.Entities.Advertisement.Category", "Category")
-                        .WithOne("Image")
-                        .HasForeignKey("Divarcheh.Domain.Core.Entities.BaseEntities.Image", "CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Divarcheh.Domain.Core.Entities.User.User", "User")
-                        .WithOne("Image")
-                        .HasForeignKey("Divarcheh.Domain.Core.Entities.BaseEntities.Image", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Advertisement");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.User", b =>
@@ -642,9 +620,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 {
                     b.Navigation("Advertisements");
 
-                    b.Navigation("Image")
-                        .IsRequired();
-
                     b.Navigation("SubCategories");
                 });
 
@@ -663,8 +638,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.User", b =>
                 {
                     b.Navigation("FavoriteAdvertisements");
-
-                    b.Navigation("Image");
 
                     b.Navigation("UserAdvertisements");
                 });
