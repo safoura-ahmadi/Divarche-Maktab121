@@ -2038,19 +2038,19 @@ body.fix-header .navbar-fixed-top{
     background-position: center center;
 }
 body.bg-1 #sidebar{
-    background-image: url(../images/sidebar-bg/1.jpg);
+    background-image: url(../~/UserTemplate/images/sidebar-bg/1.jpg);
 }
 body.bg-2 #sidebar{
-    background-image: url(../images/sidebar-bg/2.jpg);
+    background-image: url(../~/UserTemplate/images/sidebar-bg/2.jpg);
 }
 body.bg-3 #sidebar{
-    background-image: url(../images/sidebar-bg/3.jpg);
+    background-image: url(../~/UserTemplate/images/sidebar-bg/3.jpg);
 }
 body.bg-4 #sidebar{
-    background-image: url(../images/sidebar-bg/4.jpg);
+    background-image: url(../~/UserTemplate/images/sidebar-bg/4.jpg);
 }
 body.bg-5 #sidebar{
-    background-image: url(../images/sidebar-bg/5.jpg);
+    background-image: url(../~/UserTemplate/images/sidebar-bg/5.jpg);
 }
 body[class*="bg-"] .metismenu a:not(.current):hover{
     background-color: rgba(50, 50, 50, 0.5) !important;
@@ -2525,7 +2525,7 @@ body.sidebar-extra .metismenu>li>a.dropdown-toggle:before {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: url(../images/bg/blur.jpg) center top;
+    background: url(../~/UserTemplate/images/bg/blur.jpg) center top;
     -moz-background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -3086,7 +3086,7 @@ h1.page-error sup{
     #loader{
         display: block;
         border:none;
-        background: #fff url(../images/AjaxLoader.gif) center center no-repeat;
+        background: #fff url(../~/UserTemplate/images/AjaxLoader.gif) center center no-repeat;
         right: 0;
         left: 0;
         top: 0;
@@ -4033,7 +4033,7 @@ body.dark .sides-effect h2:after {
     background: #aab3d9;
 }
 body.dark .fixed-modal-bg{
-    background-image: url(../images/bg/blur-dark.jpg);
+    background-image: url(../~/UserTemplate/images/bg/blur-dark.jpg);
 }
 body.dark .modal-page{
     background: rgba(0, 0, 0, 0.36);

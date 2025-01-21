@@ -26,7 +26,7 @@ public class UserService : IUserService
         {
             fileName = Guid.NewGuid().ToString() +
                        ContentDispositionHeaderValue.Parse(FormFile.ContentDisposition).FileName.Trim('"');
-            filePath = Path.Combine("wwwroot/Images/Profiles", fileName);
+            filePath = Path.Combine("wwwroot/~/UserTemplate/images/Profiles", fileName);
             try
             {
                 using (var stream = System.IO.File.Create(filePath))
@@ -38,7 +38,7 @@ public class UserService : IUserService
             {
                 throw new Exception("Upload files operation failed");
             }
-            return $"/Images/Profiles/{fileName}";
+            return $"/~/UserTemplate/images/Profiles/{fileName}";
         }
         else
             fileName = "";

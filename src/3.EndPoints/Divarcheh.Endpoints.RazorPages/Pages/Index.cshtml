@@ -1,10 +1,516 @@
 ﻿@page
+@using Divarcheh.Domain.AppServices
+@using Divarcheh.Domain.Core.Contracts.AppService
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
+@inject ICategoryAppService CategoryAppService;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section id="main" class="clearfix home-default">
+	<div class="container">
+		<!-- banner -->
+		<div class="banner-section text-center">
+			<h1 class="title"> بزرگترین خرید و فروش بدون واسطه‌ی آنلاین</h1>
+			<h3> جستجو در بیش از  150،000  آگهی  طبقه بندی شده و ارسال آگهی های نامحدود رایگان!</h3>
+			<!-- banner-form -->
+			<div class="banner-form">
+				<form action="#">
+					<!-- category-change -->
+					<div class="dropdown category-dropdown">
+						<a data-toggle="dropdown" href="#"><span class="change-text">انتخاب دسته‌بندی</span> <i class="fa fa-angle-down"></i></a>
+						<ul class="dropdown-menu category-change">
+							<li><a href="#">مد و زیبایی</a></li>
+							<li><a href="#">ماشین و وسایل نقلیه</a></li>
+							<li><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></li>
+							<li><a href="#">املاک</a></li>
+							<li><a href="#">ورزشی و بازی</a></li>
+						</ul>
+					</div><!-- category-change -->
+
+					<input type="text" class="form-control" placeholder="عبارت مورد نظر خود را تایپ کنید">
+					<button type="submit" class="form-control" value="Search">جستجو</button>
+				</form>
+			</div><!-- banner-form -->
+			<!-- banner-socail -->
+			<ul class="banner-socail list-inline">
+				<li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#" title="Youtube"><i class="fa fa-youtube"></i></a></li>
+			</ul><!-- banner-socail -->
+		</div><!-- banner -->
+		<!-- main-content -->
+		<div class="main-content">
+			<!-- row -->
+			<div class="row">
+				<div class="d-none d-md-block col-md-2 text-center">
+					<div class="advertisement">
+						<a href="#"><img src="~/UserTemplate/images/ads/2.jpg" alt="Images" class="img-fluid"></a>
+					</div>
+				</div>
+
+				<!-- product-list -->
+				<div class="col-md-8">
+					<!-- categorys -->
+					<div class="section category-ad text-center">
+                        <ul class="category-list">
+							@foreach (var category in @CategoryAppService.GetCategoriesForHomePage())
+                            {
+                                <li class="category-item">
+                                    <a href="#">
+										<div class="category-icon"><img src="@category.ImagePath" alt="@category.Title" class="img-fluid"></div>
+                                        <span class="category-title">@category.Title</span>
+                                        <span class="category-quantity">(@category.AdvertisementCount)</span>
+                                    </a>
+                                </li><!-- category-item -->
+                            }
+                        </ul>
+					</div><!-- category-ad -->
+					<div class="ad-section text-center">
+						<a href="#"><img src="~/UserTemplate/images/ads/3.jpg" alt="Image" class="img-fluid"></a>
+					</div><!-- ad-section -->
+					<!-- trending-ads -->
+					<div class="section trending-ads">
+						<div class="section-title tab-manu">
+							<h4>پربازدیدترین آگهی‌ها</h4>
+							<!-- Nav tabs -->
+							<ul class="nav nav-tabs" role="tablist">
+								<li role="presentation"><a class="active" href="#recent-ads" data-toggle="tab">آخرین آگهی‌ها</a></li>
+								<li role="presentation"><a href="#popular" data-toggle="tab">محبوبترین آگهی‌ها</a></li>
+								<li role="presentation"><a href="#hot-ads" data-toggle="tab">پربازدیدترین آگهی‌ها</a></li>
+							</ul>
+						</div>
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<!-- tab-pane -->
+							<div role="tabpanel" class="tab-pane fade in active show" id="recent-ads">
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<!-- item-image -->
+									<div class="item-image-box col-lg-4">
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/1.jpg" alt="Image" class="img-fluid"></a>
+											<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i class="fa fa-check-square-o"></i></a>
+										</div><!-- item-image -->
+									</div>
+
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  5000 تومان  </h3>
+											<h4 class="item-title"><a href="#">اپل تی وی - بهترین تلویزیون دنیا</a></h4>
+											<div class="item-cat">
+												<span><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></span> /
+												<span><a href="#">تلویزیون و دستگاه ویدئو</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/2.jpg" alt="Image" class="img-fluid"></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price"> 25000 تومان <span> (قابل مذاکره) </span></h3>
+											<h4 class="item-title"><a href="#">مبلمان پارچه ، مبلمان دستباف دست ساز</a></h4>
+											<div class="item-cat">
+												<span><a href="#">لوازم خانگی</a></span> /
+												<span><a href="#">کاناپه</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/4.jpg" alt="Image" class="img-fluid"></a>
+											<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i class="fa fa-check-square-o"></i></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  8000 تومان  </h3>
+											<h4 class="item-title"><a href="#">ریک مورتون- مگیسیوس چیس</a></h4>
+											<div class="item-cat">
+												<span><a href="#">کتاب و مجله</a></span> /
+												<span><a href="#">کتاب</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a href="#" data-toggle="tooltip" data-placement="top" title="شخصی"><i class="fa fa-user"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/3.jpg" alt="Image" class="img-fluid"></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  89000 تومان   <span> (قابل مذاکره) </span></h3>
+											<h4 class="item-title"><a href="#">سامسونگ گلکسی اس 10</a></h4>
+											<div class="item-cat">
+												<span><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></span> /
+												<span><a href="#">تلفن همراه</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+
+							</div><!-- tab-pane -->
+							<!-- tab-pane -->
+							<div role="tabpanel" class="tab-pane fade" id="popular">
+
+								<div class="ad-item row">
+									<!-- item-image -->
+									<div class="item-image-box col-lg-4">
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/1.jpg" alt="Image" class="img-fluid"></a>
+											<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i class="fa fa-check-square-o"></i></a>
+										</div><!-- item-image -->
+									</div>
+
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  5000 تومان  </h3>
+											<h4 class="item-title"><a href="#">اپل تی وی - بهترین تلویزیون دنیا</a></h4>
+											<div class="item-cat">
+												<span><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></span> /
+												<span><a href="#">تلویزیون و دستگاه ویدئو</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/3.jpg" alt="Image" class="img-fluid"></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+
+
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  89000 تومان   <span> (قابل مذاکره) </span></h3>
+											<h4 class="item-title"><a href="#">سامسونگ گلکسی اس 10</a></h4>
+											<div class="item-cat">
+												<span><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></span> /
+												<span><a href="#">تلفن همراه</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/2.jpg" alt="Image" class="img-fluid"></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price"> 25000 تومان <span> (قابل مذاکره) </span></h3>
+											<h4 class="item-title"><a href="#">مبلمان پارچه ، مبلمان دستباف دست ساز</a></h4>
+											<div class="item-cat">
+												<span><a href="#">لوازم خانگی</a></span> /
+												<span><a href="#">کاناپه</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/4.jpg" alt="Image" class="img-fluid"></a>
+											<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i class="fa fa-check-square-o"></i></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  8000 تومان  </h3>
+											<h4 class="item-title"><a href="#">ریک مورتون- مگیسیوس چیس</a></h4>
+											<div class="item-cat">
+												<span><a href="#">کتاب و مجله</a></span> /
+												<span><a href="#">کتاب</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a href="#" data-toggle="tooltip" data-placement="top" title="شخصی"><i class="fa fa-user"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+							</div><!-- tab-pane -->
+							<!-- tab-pane -->
+							<div role="tabpanel" class="tab-pane fade" id="hot-ads">
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<!-- item-image -->
+									<div class="item-image-box col-lg-4">
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/1.jpg" alt="Image" class="img-fluid"></a>
+											<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i class="fa fa-check-square-o"></i></a>
+										</div><!-- item-image -->
+									</div>
+
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  5000 تومان  </h3>
+											<h4 class="item-title"><a href="#">اپل تی وی - بهترین تلویزیون دنیا</a></h4>
+											<div class="item-cat">
+												<span><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></span> /
+												<span><a href="#">تلویزیون و دستگاه ویدئو</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/4.jpg" alt="Image" class="img-fluid"></a>
+											<a href="#" class="verified" data-toggle="tooltip" data-placement="left" title="تایید شده"><i class="fa fa-check-square-o"></i></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  8000 تومان  </h3>
+											<h4 class="item-title"><a href="#">ریک مورتون- مگیسیوس چیس</a></h4>
+											<div class="item-cat">
+												<span><a href="#">کتاب و مجله</a></span> /
+												<span><a href="#">کتاب</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a href="#" data-toggle="tooltip" data-placement="top" title="شخصی"><i class="fa fa-user"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/3.jpg" alt="Image" class="img-fluid"></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- ad-item -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price">  89000 تومان   <span> (قابل مذاکره) </span></h3>
+											<h4 class="item-title"><a href="#">سامسونگ گلکسی اس 10</a></h4>
+											<div class="item-cat">
+												<span><a href="details.html">دستگاه‌های دیجیتال  و گجت‌ها</a></span> /
+												<span><a href="#">تلفن همراه</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+								<!-- ad-item -->
+								<div class="ad-item row">
+									<div class="item-image-box col-lg-4">
+										<!-- item-image -->
+										<div class="item-image">
+											<a href="details.html"><img src="~/UserTemplate/images/trending/2.jpg" alt="Image" class="img-fluid"></a>
+										</div><!-- item-image -->
+									</div><!-- item-image-box -->
+									<!-- rending-text -->
+									<div class="item-info col-lg-8">
+										<!-- ad-info -->
+										<div class="ad-info">
+											<h3 class="item-price"> 25000 تومان <span> (قابل مذاکره) </span></h3>
+											<h4 class="item-title"><a href="#">مبلمان پارچه ، مبلمان دستباف دست ساز</a></h4>
+											<div class="item-cat">
+												<span><a href="#">لوازم خانگی</a></span> /
+												<span><a href="#">کاناپه</a></span>
+											</div>
+										</div><!-- ad-info -->
+										<!-- ad-meta -->
+										<div class="ad-meta">
+											<div class="meta-content">
+												<span class="dated"><a href="#">7 مهر 1399 - 10:10 بعدازظهر </a></span>
+												<a href="#" class="tag"><i class="fa fa-tags"></i>دسته دوم</a>
+											</div>
+											<!-- item-info-right -->
+											<div class="user-option pull-right">
+												<a href="#" data-toggle="tooltip" data-placement="top" title="ایران- تهران"><i class="fa fa-map-marker"></i> </a>
+												<a class="online" href="#" data-toggle="tooltip" data-placement="top" title="فروشنده"><i class="fa fa-suitcase"></i> </a>
+											</div><!-- item-info-right -->
+										</div><!-- ad-meta -->
+									</div><!-- item-info -->
+								</div><!-- ad-item -->
+							</div><!-- tab-pane -->
+						</div>
+					</div><!-- trending-ads -->
+				</div><!-- product-list -->
+				<!-- advertisement -->
+				<div class="d-none d-md-block col-md-2">
+					<div class="advertisement text-center">
+						<a href="#"><img src="~/UserTemplate/images/ads/1.jpg" alt="Images" class="img-fluid"></a>
+					</div>
+				</div><!-- advertisement -->
+			</div><!-- row -->
+		</div><!-- main-content -->
+	</div><!-- container -->
+</section><!-- main -->
