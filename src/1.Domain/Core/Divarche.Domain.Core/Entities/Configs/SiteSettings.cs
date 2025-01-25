@@ -3,6 +3,6 @@
     public class SiteSettings
     {
         public ConnectionStrings ConnectionStrings { get; set; }
-        public Limitations Limitations { get; set; }
+        public string ApiKey { get; set; }
     }
 }

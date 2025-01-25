@@ -6,7 +6,11 @@ using Divarcheh.Infrastructure.EfCore.Common;
 using Divarcheh.Domain.Core.Contracts.Service;
 using Divarcheh.Domain.Core.Contracts.AppService;
 using Divarcheh.Domain.Core.Contracts.Repository;
+using Divarcheh.Endpoints.RazorPages.Middelware;
 using Divarcheh.Infrastructure.EfCore.Repositories;
+
+
+//27473c23-4628-41b2-aaa7-7515e5350077
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,8 +63,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseApiKeyValidation();
 
 app.UseRouting();
 

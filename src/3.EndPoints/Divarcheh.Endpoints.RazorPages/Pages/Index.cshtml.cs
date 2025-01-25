@@ -15,7 +15,7 @@ namespace Divarcheh.Endpoints.RazorPages.Pages
 
         public void OnGet()
         {
-
+      
         }
     }
 }
