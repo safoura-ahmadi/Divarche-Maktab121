@@ -16,36 +16,10 @@ public class UserService : IUserService
 
     public int GetCount() => _userRepository.GetCount();
     public List<UserSummaryDto> GetAll() => _userRepository.GetAll();
-    public bool Create(UserDto model) => _userRepository.Create(model);
-
-    public string UploadImageProfile(IFormFile FormFile)
-    {
-        string filePath;
-        string fileName;
-        if (FormFile != null)
-        {
-            fileName = Guid.NewGuid().ToString() +
-                       ContentDispositionHeaderValue.Parse(FormFile.ContentDisposition).FileName.Trim('"');
-            filePath = Path.Combine("wwwroot/~/UserTemplate/images/Profiles", fileName);
-            try
-            {
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                     FormFile.CopyTo(stream);
-                }
-            }
-            catch
-            {
-                throw new Exception("Upload files operation failed");
-            }
-            return $"/~/UserTemplate/images/Profiles/{fileName}";
-        }
-        else
-            fileName = "";
-
-        return fileName;
-    }
+    public async Task<bool> Create(UserDto model,CancellationToken cancellationToken) 
+        => await _userRepository.Create(model,cancellationToken);
 
     public UserDto GetById(int id) => _userRepository.GetById(id);
-    public bool Update(UserDto model) => _userRepository.Update(model);
+    public async Task<bool> Update(UserDto model,CancellationToken cancellationToken) 
+        => await _userRepository.Update(model,cancellationToken);
 }

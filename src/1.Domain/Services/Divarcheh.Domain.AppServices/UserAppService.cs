@@ -6,33 +6,34 @@ namespace Divarcheh.Domain.AppServices;
 public class UserAppService : IUserAppService
 {
     private readonly IUserService _userService;
-
-    public UserAppService(IUserService userService)
+    private readonly IBaseDataService _baseDataService;
+    public UserAppService(IUserService userService, IBaseDataService baseDataService)
     {
         _userService = userService;
+        _baseDataService = baseDataService;
     }
 
     public int GetCount() => _userService.GetCount();
     public List<UserSummaryDto> GetAll() => _userService.GetAll();
 
-    public bool Create(UserDto model)
+    public async Task<bool> Create(UserDto model,CancellationToken cancellationToken)
     {
         if (model.ProfileImgFile is not null)
         {
-            model.ImagePath = _userService.UploadImageProfile(model.ProfileImgFile!);
+            model.ImagePath = await _baseDataService.UploadImage(model.ProfileImgFile! , "Profiles" , cancellationToken);
         }
 
-        return _userService.Create(model);
+        return  await _userService.Create(model, cancellationToken);
     }
 
     public UserDto GetById(int id) => _userService.GetById(id);
-    public bool Update(UserDto model)
+    public async Task<bool> Update(UserDto model ,CancellationToken cancellationToken)
     {
         if (model.ProfileImgFile is not null)
         {
-            model.ImagePath = _userService.UploadImageProfile(model.ProfileImgFile!);
+            model.ImagePath =  await _baseDataService.UploadImage(model.ProfileImgFile!, "Profiles", cancellationToken);
         }
 
-        return _userService.Update(model);
+        return await _userService.Update(model,cancellationToken);
     }
 }

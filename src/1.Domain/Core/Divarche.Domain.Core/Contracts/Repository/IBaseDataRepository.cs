@@ -1,11 +1,13 @@
-﻿using Divarcheh.Domain.Core.Entities.BaseEntities;
+﻿using Divarcheh.Domain.Core.Entities.Advertisement;
+using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.User;
 
 namespace Divarcheh.Domain.Core.Contracts.Repository
 {
     public interface IBaseDataRepository
     {
-        public List<City> GetCities();
-        public List<Role> GetRoles();
+        Task<List<City>> GetCities(CancellationToken cancellationToken);
+        Task<List<Role>> GetRoles(CancellationToken cancellationToken);
+        Task<List<Brand>> GetBrands(CancellationToken cancellationToken);
     }
 }

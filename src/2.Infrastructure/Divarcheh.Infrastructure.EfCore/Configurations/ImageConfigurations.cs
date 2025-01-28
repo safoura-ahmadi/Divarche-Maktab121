@@ -17,6 +17,15 @@ namespace Divarcheh.Infrastructure.EfCore.Configurations
                 .WithMany(x => x.Images)
                 .HasForeignKey(x => x.AdvertisementId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(new List<Image>()
+            {
+                new Image() { Id = 1, AdvertisementId = 1, Path = "Images/trending/1.jpg" },
+                new Image() { Id = 2, AdvertisementId = 2, Path = "Images/trending/2.jpg" },
+                new Image() { Id = 3, AdvertisementId = 2, Path = "Images/trending/4.jpg" },
+                new Image() { Id = 4, AdvertisementId = 3, Path = "Images/trending/3.jpg" },
+                new Image() { Id = 5, AdvertisementId = 4, Path = "Images/trending/5.jpg" }
+            });
         }
     }
 }

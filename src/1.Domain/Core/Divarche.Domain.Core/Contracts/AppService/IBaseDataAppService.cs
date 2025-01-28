@@ -5,7 +5,7 @@ namespace Divarcheh.Domain.Core.Contracts.AppService
 {
     public interface IBaseDataAppService
     {
-        public List<City> GetCities();
-        public List<Role> GetRoles();
+        Task<List<City>> GetCities(CancellationToken cancellationToken);
+        Task<List<Role>> GetRoles(CancellationToken cancellationToken);
     }
 }

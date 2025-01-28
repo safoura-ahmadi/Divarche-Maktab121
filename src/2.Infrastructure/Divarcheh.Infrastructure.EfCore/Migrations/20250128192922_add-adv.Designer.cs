@@ -4,6 +4,7 @@ using Divarcheh.Infrastructure.EfCore.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Divarcheh.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250128192922_add-adv")]
+    partial class addadv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,7 +103,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             BrandId = 1,
                             CategoryId = 8,
                             CityId = 1,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9551),
+                            CreateAt = new DateTime(2025, 1, 28, 22, 59, 22, 447, DateTimeKind.Local).AddTicks(1984),
                             Description = "Description",
                             Model = "2021",
                             Price = 50000,
@@ -118,7 +121,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             BrandId = 2,
                             CategoryId = 9,
                             CityId = 5,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9562),
+                            CreateAt = new DateTime(2025, 1, 28, 22, 59, 22, 447, DateTimeKind.Local).AddTicks(1994),
                             Description = "Description",
                             Model = "2022",
                             Price = 80000,
@@ -136,29 +139,11 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             BrandId = 4,
                             CategoryId = 8,
                             CityId = 10,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9564),
+                            CreateAt = new DateTime(2025, 1, 28, 22, 59, 22, 447, DateTimeKind.Local).AddTicks(1996),
                             Description = "Description",
                             Model = "2024",
                             Price = 70000,
                             Title = "ریک مورتون- مگیسیوس چیس",
-                            UserId = 1,
-                            VisitCount = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AdvertisementFinalStatus = 2,
-                            AdvertisementStatus = 0,
-                            AdvertisementType = 2,
-                            ApprovedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BrandId = 3,
-                            CategoryId = 6,
-                            CityId = 10,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9566),
-                            Description = "Description",
-                            Model = "2024",
-                            Price = 70000,
-                            Title = "سامسونگ گلکسی اس 10",
                             UserId = 1,
                             VisitCount = 0
                         });
@@ -496,12 +481,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             Id = 4,
                             AdvertisementId = 3,
                             Path = "Images/trending/3.jpg"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AdvertisementId = 4,
-                            Path = "Images/trending/5.jpg"
                         });
                 });
 
@@ -601,7 +580,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                             LastName = "Maleki",
                             Mobile = "09123456789",
                             Password = "123456",
-                            RegisterAt = new DateTime(2025, 1, 28, 23, 1, 41, 185, DateTimeKind.Local).AddTicks(5289),
+                            RegisterAt = new DateTime(2025, 1, 28, 22, 59, 22, 447, DateTimeKind.Local).AddTicks(7297),
                             RoleId = 1,
                             UserName = "Admin"
                         });

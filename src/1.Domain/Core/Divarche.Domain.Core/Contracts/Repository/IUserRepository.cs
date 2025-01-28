@@ -6,8 +6,8 @@ public interface IUserRepository
     int GetCount();
     List<UserSummaryDto> GetAll();
     UserDto GetById(int id);
-    bool Create(UserDto model);
+    Task<bool> Create(UserDto model,CancellationToken cancellationToken);
 
-    bool Update(UserDto model);
+    Task<bool> Update(UserDto model, CancellationToken cancellationToken);
 
 }

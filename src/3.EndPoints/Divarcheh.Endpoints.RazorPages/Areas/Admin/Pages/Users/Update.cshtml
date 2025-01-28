@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <select asp-for="User.CityId" class="form-select">
-                                    @foreach (var city in @BaseDataAppService.GetCities())
+                                    @foreach (var city in await @BaseDataAppService.GetCities(default))
                                     {
                                         <option value="@city.Id">@city.Title</option>
                                     }
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <select asp-for="User.RoleId" class="form-select">
-                                    @foreach (var role in @BaseDataAppService.GetRoles())
+                                    @foreach (var role in await @BaseDataAppService.GetRoles(default))
                                     {
                                         <option value="@role.Id">@role.Title</option>
                                     }

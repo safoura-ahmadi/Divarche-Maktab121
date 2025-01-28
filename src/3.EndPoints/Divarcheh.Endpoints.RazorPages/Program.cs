@@ -39,6 +39,10 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 
 
+builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
+builder.Services.AddScoped<IAdvertisementAppService, AdvertisementAppService>();
+
 builder.Services.AddScoped<IDashboardAppService, DashboardAppService>();
 
 #endregion

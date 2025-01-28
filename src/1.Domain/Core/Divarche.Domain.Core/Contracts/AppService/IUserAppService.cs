@@ -5,7 +5,7 @@ public interface IUserAppService
 {
     int GetCount();
     List<UserSummaryDto> GetAll();
-    bool Create(UserDto model);
+    Task<bool> Create(UserDto model,CancellationToken cancellationToken);
     UserDto GetById(int id);
-    public bool Update(UserDto model);
+    Task<bool> Update(UserDto model,CancellationToken cancellationToken);
 }

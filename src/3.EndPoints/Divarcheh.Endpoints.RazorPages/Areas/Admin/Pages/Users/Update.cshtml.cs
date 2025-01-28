@@ -15,9 +15,9 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
             User = userAppService.GetById(id);
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
-            userAppService.Update(User);
+            await userAppService.Update(User, cancellationToken);
             return RedirectToPage("Index");
         }
     }

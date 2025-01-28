@@ -15,5 +15,10 @@ namespace Divarcheh.Domain.AppServices
 
         public List<CategoryDto> GetChildCategories(int parentId)
             => categoryService.GetChildCategories(parentId);
+
+        public Task<string> GetTitleForCreateAdv(int childId, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

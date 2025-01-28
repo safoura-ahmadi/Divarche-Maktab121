@@ -20,5 +20,10 @@ namespace Divarcheh.Domain.AppServices
 
         public List<CategoryDto> GetChildCategories(int parentId)
             => categoryRepository.GetChildCategories(parentId);
+
+        public async Task<GetDataForCreateAdvDto> GetDataForCreateAdv(int childId, CancellationToken cancellationToken)
+        {
+           return await categoryRepository.GetDataForCreateAdv(childId, cancellationToken);
+        }
     }
 }

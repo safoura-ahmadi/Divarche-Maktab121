@@ -63,7 +63,7 @@ public class UserRepository : IUserRepository
 
     }
 
-    public bool Create(UserDto model)
+    public async Task<bool> Create(UserDto model, CancellationToken cancellationToken)
     {
         try
         {
@@ -82,8 +82,8 @@ public class UserRepository : IUserRepository
 
             user.ImagePath = model.ImagePath;
 
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.Users.AddAsync(user, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
             return true;
         }
         catch (Exception)
@@ -94,14 +94,14 @@ public class UserRepository : IUserRepository
 
     }
 
-    public bool Update(UserDto model)
+    public async Task<bool> Update(UserDto model, CancellationToken cancellationToken)
     {
-        var user = _dbContext.Users
+        var user = await _dbContext.Users
             .Include(x => x.City)
             .Include(x => x.Role)
-            .FirstOrDefault(x => x.Id == model.Id);
+            .FirstOrDefaultAsync(x => x.Id == model.Id, cancellationToken);
 
-        if (user is null)  return false;
+        if (user is null) return false;
 
         user.FirstName = model.FirstName;
         user.LastName = model.LastName;
@@ -113,7 +113,7 @@ public class UserRepository : IUserRepository
         user.Address = model.Address;
         user.ImagePath = model.ImagePath ?? user.ImagePath;
 
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync(cancellationToken);
         return true;
     }
 }

@@ -26,16 +26,16 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
 
         [BindProperty]
         public List<Role> Roles { get; set; }
-        public void OnGet()
+        public async Task OnGet(CancellationToken cancellationToken)
         {
-            Cities = _baseDataAppService.GetCities();
-            Roles = _baseDataAppService.GetRoles();
+            Cities = await _baseDataAppService.GetCities(cancellationToken);
+            Roles = await _baseDataAppService.GetRoles(cancellationToken);
         }
 
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
-            _userAppService.Create(User);
+           await _userAppService.Create(User, cancellationToken);
             return RedirectToPage("Index");
         }
     }

@@ -50,5 +50,27 @@ namespace Divarcheh.Infrastructure.EfCore.Repositories
 
             return categories;
         }
+
+        public async Task<GetDataForCreateAdvDto> GetDataForCreateAdv(int childId,CancellationToken cancellationToken)
+        {
+            var item = await appDbContext.Categories
+                .Include(x=>x.ParentCategory)
+                .FirstOrDefaultAsync(x => x.Id == childId,cancellationToken);
+
+            if (item is not null)
+            {
+                return new GetDataForCreateAdvDto
+                {
+                    Title = $" {item.Title} > {item.ParentCategory!.Title}",
+                    ImagePath = item.ImagePath
+                };
+            }
+            else
+            {
+                throw new Exception("category not found!");
+            }
+
+        }
+
     }
 }
