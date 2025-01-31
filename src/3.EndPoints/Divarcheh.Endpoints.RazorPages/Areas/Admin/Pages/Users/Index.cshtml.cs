@@ -19,9 +19,9 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         [BindProperty]
         public List<UserSummaryDto> users { get; set; }
    
-        public void OnGet()
+        public async Task OnGet(CancellationToken cancellationToken)
         {
-            users = _userAppService.GetAll();
+            users = await _userAppService.GetAll(cancellationToken);
         }
 
 

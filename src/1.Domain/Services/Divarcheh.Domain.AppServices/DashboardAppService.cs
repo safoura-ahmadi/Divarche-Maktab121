@@ -13,11 +13,11 @@ namespace Divarcheh.Domain.AppServices
             _userService = userService;
         }
 
-        public StatisticsDataDto GetStatisticsData()
+        public async Task<StatisticsDataDto> GetStatisticsData(CancellationToken cancellationToken)
         {
             var model = new StatisticsDataDto();
 
-            model.UserCount = _userService.GetCount();
+            model.UserCount = await _userService.GetCount(cancellationToken);
             model.AdvertisementCount = 10;
             model.CategoryCount = 15;
             model.BrandCount = 3;

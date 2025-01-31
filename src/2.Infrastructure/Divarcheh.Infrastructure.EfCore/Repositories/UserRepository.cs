@@ -16,10 +16,10 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public int GetCount() => _dbContext.Users.Count();
-    public List<UserSummaryDto> GetAll()
+    public async Task< int> GetCount(CancellationToken cancellationToken) => await _dbContext.Users.CountAsync(cancellationToken);
+    public async Task< List<UserSummaryDto>> GetAll(CancellationToken cancellationToken)
     {
-        var users = _dbContext.Users
+        var users = await _dbContext.Users
             .Select(u => new UserSummaryDto
             {
                 Id = u.Id,
@@ -32,17 +32,17 @@ public class UserRepository : IUserRepository
                 City = u.City.Title,
                 Role = u.Role.Title,
                 ImagePath = u.ImagePath
-            }).ToList();
+            }).ToListAsync(cancellationToken);
 
         return users;
     }
 
-    public UserDto GetById(int id)
+    public async Task< UserDto> GetById(int id,CancellationToken cancellationToken)
     {
-        var user = _dbContext.Users
+        var user = await _dbContext.Users
             .Include(x => x.City)
             .Include(x => x.Role)
-            .FirstOrDefault(x => x.Id == id);
+            .FirstOrDefaultAsync(x => x.Id == id,cancellationToken);
 
         if (user is null) throw new Exception("user not found");
 

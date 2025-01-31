@@ -16,17 +16,17 @@ namespace Divarcheh.Endpoints.RazorPages.Pages.Advertisement
         [BindProperty]
         public int ParentId { get; set; }
 
-        public void OnGet(int parentId, int childCategoryId)
+        public async Task OnGet(int parentId, int childCategoryId,CancellationToken cancellationToken)
         {
-            Parents = categoryAppService.GetParentCategories();
+            Parents = await categoryAppService.GetParentCategories(cancellationToken);
             if (parentId > 0)
             {
-                Childs = categoryAppService.GetChildCategories(parentId);
+                Childs = await categoryAppService.GetChildCategories(parentId,cancellationToken);
             }
             else
             {
                 var firstParentId = Parents.First().Id;
-                Childs = categoryAppService.GetChildCategories(firstParentId);
+                Childs = await categoryAppService.GetChildCategories(firstParentId, cancellationToken);
              
             }
             ParentId = parentId;

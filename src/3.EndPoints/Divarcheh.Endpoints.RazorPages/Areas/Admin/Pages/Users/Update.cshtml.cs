@@ -10,9 +10,9 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         [BindProperty]
         public UserDto User { get; set; }
 
-        public void OnGet(int id)
+        public async Task OnGet(int id,CancellationToken cancellationToken)
         {
-            User = userAppService.GetById(id);
+            User = await userAppService.GetById(id, cancellationToken);
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)

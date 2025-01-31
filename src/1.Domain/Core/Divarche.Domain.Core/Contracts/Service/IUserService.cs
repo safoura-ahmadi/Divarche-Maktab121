@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 namespace Divarcheh.Domain.Core.Contracts.Service;
 public interface IUserService
 {
-    int GetCount();
-    List<UserSummaryDto> GetAll();
+    Task<int> GetCount(CancellationToken cancellationToken);
+    Task<List<UserSummaryDto>> GetAll(CancellationToken cancellationToken);
     Task<bool> Create(UserDto model, CancellationToken cancellationToken);
-    UserDto GetById(int id);
+    Task<UserDto> GetById(int id, CancellationToken cancellationToken);
     Task<bool> Update(UserDto model, CancellationToken cancellationToken);
 }

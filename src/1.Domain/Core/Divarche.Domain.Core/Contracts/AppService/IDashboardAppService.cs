@@ -4,6 +4,6 @@ namespace Divarcheh.Domain.Core.Contracts.AppService
 {
     public interface IDashboardAppService
     {
-        StatisticsDataDto GetStatisticsData();
+        Task<StatisticsDataDto> GetStatisticsData(CancellationToken cancellationToken);
     }
 }

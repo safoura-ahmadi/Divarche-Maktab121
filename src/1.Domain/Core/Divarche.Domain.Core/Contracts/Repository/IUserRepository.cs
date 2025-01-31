@@ -3,10 +3,10 @@
 namespace Divarcheh.Domain.Core.Contracts.Repository;
 public interface IUserRepository
 {
-    int GetCount();
-    List<UserSummaryDto> GetAll();
-    UserDto GetById(int id);
-    Task<bool> Create(UserDto model,CancellationToken cancellationToken);
+    Task<int> GetCount(CancellationToken cancellationToken);
+    Task<List<UserSummaryDto>> GetAll(CancellationToken cancellationTokenw);
+    Task<UserDto> GetById(int id, CancellationToken cancellationToken);
+    Task<bool> Create(UserDto model, CancellationToken cancellationToken);
 
     Task<bool> Update(UserDto model, CancellationToken cancellationToken);
 

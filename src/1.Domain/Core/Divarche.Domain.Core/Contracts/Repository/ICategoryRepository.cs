@@ -5,9 +5,9 @@ namespace Divarcheh.Domain.Core.Contracts.Repository
 {
     public interface ICategoryRepository
     {
-        public List<GetCategoryForHomePageDto> GetCategoriesForHomePage();
-        public List<CategoryDto> GetParentCategories();
-        public List<CategoryDto> GetChildCategories(int parentId);
+        Task< List<GetCategoryForHomePageDto>> GetCategoriesForHomePage(CancellationToken cancellationToken);
+        Task< List<CategoryDto>> GetParentCategories(CancellationToken cancellationToken);
+        Task<List<CategoryDto>> GetChildCategories( int parentId, CancellationToken cancellationToken);
         Task<GetDataForCreateAdvDto> GetDataForCreateAdv(int childId,CancellationToken cancellationToken);
     }
 }

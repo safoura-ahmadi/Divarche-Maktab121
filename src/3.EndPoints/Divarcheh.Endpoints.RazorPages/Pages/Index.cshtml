@@ -56,7 +56,7 @@
 					<!-- categorys -->
 					<div class="section category-ad text-center">
                         <ul class="category-list">
-							@foreach (var category in @CategoryAppService.GetCategoriesForHomePage())
+							@foreach (var category in await CategoryAppService.GetCategoriesForHomePage(default))
                             {
                                 <li class="category-item">
                                     <a href="#">

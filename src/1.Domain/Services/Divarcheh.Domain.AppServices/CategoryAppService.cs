@@ -7,14 +7,14 @@ namespace Divarcheh.Domain.AppServices
 {
     public class CategoryAppService(ICategoryService categoryService) : ICategoryAppService
     {
-        public List<GetCategoryForHomePageDto> GetCategoriesForHomePage()
-            => categoryService.GetCategoriesForHomePage();
+        public async Task<List<GetCategoryForHomePageDto>> GetCategoriesForHomePage(CancellationToken cancellationToken)
+            => await categoryService.GetCategoriesForHomePage(cancellationToken);
 
-        public List<CategoryDto> GetParentCategories()
-            => categoryService.GetParentCategories();
+        public async Task<List<CategoryDto>> GetParentCategories(CancellationToken cancellationToken)
+            => await categoryService.GetParentCategories(cancellationToken);
 
-        public List<CategoryDto> GetChildCategories(int parentId)
-            => categoryService.GetChildCategories(parentId);
+        public async Task<List<CategoryDto>> GetChildCategories(int parentId, CancellationToken cancellationToken)
+            => await categoryService.GetChildCategories(parentId, cancellationToken);
 
         public Task<string> GetTitleForCreateAdv(int childId, CancellationToken cancellationToken)
         {

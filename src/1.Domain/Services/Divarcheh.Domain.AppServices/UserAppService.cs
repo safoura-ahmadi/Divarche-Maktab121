@@ -20,8 +20,8 @@ public class UserAppService : IUserAppService
         _signInManager = signInManager;
     }
 
-    public int GetCount() => _userService.GetCount();
-    public List<UserSummaryDto> GetAll() => _userService.GetAll();
+    public async Task< int> GetCount(CancellationToken cancellationToken) => await _userService.GetCount(cancellationToken);
+    public async Task< List<UserSummaryDto>> GetAll(CancellationToken cancellationToken) => await _userService.GetAll(cancellationToken);
 
 
     public async Task<IdentityResult> Register(UserDto model, CancellationToken cancellationToken)
@@ -50,7 +50,7 @@ public class UserAppService : IUserAppService
         return result;
     }
 
-    public UserDto GetById(int id) => _userService.GetById(id);
+    public async Task< UserDto> GetById(int id,CancellationToken cancellationToken) => await _userService.GetById(id,cancellationToken);
     public async Task<bool> Update(UserDto model, CancellationToken cancellationToken)
     {
         if (model.ProfileImgFile is not null)

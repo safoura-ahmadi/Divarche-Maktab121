@@ -21,10 +21,10 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages
         [BindProperty]
         public StatisticsDataDto DashboardData { get; set; }
 
-        public void OnGet()
+        public async Task OnGet(CancellationToken cancellationToken)
         {
             var data = User;
-            DashboardData = _dashboardAppService.GetStatisticsData();
+            DashboardData = await _dashboardAppService.GetStatisticsData(cancellationToken);
         }
     }
 }

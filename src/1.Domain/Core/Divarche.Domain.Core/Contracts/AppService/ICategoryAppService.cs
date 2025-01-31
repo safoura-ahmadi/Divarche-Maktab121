@@ -10,8 +10,8 @@ namespace Divarcheh.Domain.Core.Contracts.AppService
 {
     public interface ICategoryAppService
     {
-        public List<GetCategoryForHomePageDto> GetCategoriesForHomePage();
-        public List<CategoryDto> GetParentCategories();
-        public List<CategoryDto> GetChildCategories(int parentId);
+        Task<List<GetCategoryForHomePageDto>> GetCategoriesForHomePage(CancellationToken cancellationToken);
+        Task<List<CategoryDto>> GetParentCategories(CancellationToken cancellationToken);
+        Task<List<CategoryDto>> GetChildCategories(int parentId, CancellationToken cancellationToken);
     }
 }

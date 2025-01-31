@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Divarcheh.Infrastructure.EfCore.Repositories
 {
-    public class CategoryRepository (AppDbContext appDbContext) : ICategoryRepository
+    public class CategoryRepository(AppDbContext appDbContext) : ICategoryRepository
     {
-        public List<GetCategoryForHomePageDto> GetCategoriesForHomePage()
+        public async Task<List<GetCategoryForHomePageDto>> GetCategoriesForHomePage(CancellationToken cancellationToken)
         {
-            var categories = appDbContext
+            var categories = await appDbContext
                 .Categories.Include(x => x.Advertisements)
                 .Select(x => new GetCategoryForHomePageDto
                 {
@@ -18,44 +18,44 @@ namespace Divarcheh.Infrastructure.EfCore.Repositories
                     Title = x.Title,
                     ImagePath = x.ImagePath,
                     AdvertisementCount = x.Advertisements.Count
-                }).ToList();
+                }).ToListAsync(cancellationToken);
 
             return categories;
         }
 
-        public List<CategoryDto> GetParentCategories()
+        public async Task<List<CategoryDto>> GetParentCategories(CancellationToken cancellationToken)
         {
-            var categories = appDbContext.Categories
+            var categories = await appDbContext.Categories
                 .Where(x => x.ParentId == null)
-                .Select(x=> new CategoryDto()
+                .Select(x => new CategoryDto()
                 {
                     Id = x.Id,
                     Title = x.Title,
                     ImagePath = x.ImagePath
-                }).ToList();
+                }).ToListAsync(cancellationToken);
 
             return categories;
         }
 
-        public List<CategoryDto> GetChildCategories(int parentId)
+        public async Task<List<CategoryDto>> GetChildCategories(int parentId, CancellationToken cancellationToken)
         {
-            var categories = appDbContext.Categories
+            var categories = await appDbContext.Categories
                 .Where(x => x.ParentId == parentId)
                 .Select(x => new CategoryDto()
                 {
                     Id = x.Id,
                     Title = x.Title,
                     ImagePath = x.ImagePath
-                }).ToList();
+                }).ToListAsync(cancellationToken);
 
             return categories;
         }
 
-        public async Task<GetDataForCreateAdvDto> GetDataForCreateAdv(int childId,CancellationToken cancellationToken)
+        public async Task<GetDataForCreateAdvDto> GetDataForCreateAdv(int childId, CancellationToken cancellationToken)
         {
             var item = await appDbContext.Categories
-                .Include(x=>x.ParentCategory)
-                .FirstOrDefaultAsync(x => x.Id == childId,cancellationToken);
+                .Include(x => x.ParentCategory)
+                .FirstOrDefaultAsync(x => x.Id == childId, cancellationToken);
 
             if (item is not null)
             {
