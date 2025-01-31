@@ -35,7 +35,7 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
-           await _userAppService.Create(User, cancellationToken);
+           await _userAppService.Register(User, cancellationToken);
             return RedirectToPage("Index");
         }
     }

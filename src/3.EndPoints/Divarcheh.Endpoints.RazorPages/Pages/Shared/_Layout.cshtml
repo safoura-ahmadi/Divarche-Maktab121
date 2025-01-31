@@ -112,12 +112,15 @@
 							<li><a href="#">روسیه</a></li>
 						</ul>
 					</div><!-- language-dropdown -->
-					<!-- sign-in -->
-					<ul class="sign-in">
-						<li><i class="fa fa-user"></i></li>
-						<li><a href="signin.html">ورود</a></li>
-						<li><a href="signup.html">ثبت‌نام</a></li>
-					</ul><!-- sign-in -->
+                    <!-- sign-in -->
+					@if (!User.Identity.IsAuthenticated)
+                    {
+                        <ul class="sign-in">
+                            <li><i class="fa fa-user"></i></li>
+                            <li><a href="signin.html">ورود</a></li>
+                            <li><a href="signup.html">ثبت‌نام</a></li>
+                        </ul><!-- sign-in -->
+                    }
 
 					<a href="ad-post.html" class="btn">افزودن آگهی شما</a>
 				</div>

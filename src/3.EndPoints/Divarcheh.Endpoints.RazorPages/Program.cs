@@ -8,6 +8,10 @@ using Divarcheh.Domain.Core.Contracts.AppService;
 using Divarcheh.Domain.Core.Contracts.Repository;
 using Divarcheh.Endpoints.RazorPages.Middelware;
 using Divarcheh.Infrastructure.EfCore.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using Divarcheh.Domain.Core.Entities.User;
+using Framework;
 
 
 //27473c23-4628-41b2-aaa7-7515e5350077
@@ -56,6 +60,22 @@ builder.Services.AddRazorPages()
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseSqlServer(siteSettings.ConnectionStrings.SqlConnection));
 
+//IdentityUser
+//IdentityRole
+
+builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddRoles<IdentityRole<int>>()
+    .AddErrorDescriber<PersianIdentityErrorDescriber>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
 var app = builder.Build();
 
 
@@ -67,12 +87,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
+//app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseApiKeyValidation();
+//app.UseApiKeyValidation();
 
 app.UseRouting();
 

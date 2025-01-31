@@ -14,6 +14,21 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Brands",
                 columns: table => new
                 {
@@ -73,33 +88,65 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Mobile = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegisterAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Cities_CityId",
+                        name: "FK_AspNetUsers_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
+                        name: "FK_AspNetUsers_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
                         principalColumn: "Id");
@@ -111,8 +158,8 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VisitCount = table.Column<int>(type: "int", nullable: false),
@@ -130,6 +177,12 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 {
                     table.PrimaryKey("PK_Advertisements", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Advertisements_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Advertisements_Brands_BrandId",
                         column: x => x.BrandId,
                         principalTable: "Brands",
@@ -144,11 +197,91 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Advertisements_Users_UserId",
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,7 +290,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Path = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdvertisementId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -167,7 +300,8 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         name: "FK_Images_Advertisements_AdvertisementId",
                         column: x => x.AdvertisementId,
                         principalTable: "Advertisements",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,9 +320,9 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         principalTable: "Advertisements",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UsersFavoriteAdvertisements_Users_UserId",
+                        name: "FK_UsersFavoriteAdvertisements_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
@@ -211,11 +345,11 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 columns: new[] { "Id", "ImagePath", "ParentId", "Title" },
                 values: new object[,]
                 {
-                    { 1, null, null, "ماشین و وسایل نقلیه" },
-                    { 2, null, null, "دستگاه‌های دیجیتال و گجت‌ها" },
-                    { 3, null, null, "املاک" },
-                    { 4, null, null, "وسایل ورزشی" },
-                    { 5, null, null, " مد و زیبایی" }
+                    { 1, "\\UserTemplate\\images\\icon\\1.png", null, "ماشین و وسایل نقلیه" },
+                    { 2, "\\UserTemplate\\images\\icon\\2.png", null, "دستگاه‌های دیجیتال و گجت‌ها" },
+                    { 3, "\\UserTemplate\\images\\icon\\3.png", null, "املاک" },
+                    { 4, "\\UserTemplate\\images\\icon\\4.png", null, "وسایل ورزشی" },
+                    { 5, "\\UserTemplate\\images\\icon\\5.png", null, " مد و زیبایی" }
                 });
 
             migrationBuilder.InsertData(
@@ -264,16 +398,11 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 columns: new[] { "Id", "ImagePath", "ParentId", "Title" },
                 values: new object[,]
                 {
-                    { 6, null, 1, "اتومبیل و اتوبوس" },
-                    { 7, null, 1, "موتور سیکلت و اسکوتر" },
-                    { 8, null, 3, "رهن خانه" },
-                    { 9, null, 3, "اجاره خانه و آپارتمان" }
+                    { 6, "\\UserTemplate\\images\\icon\\6.png", 1, "اتومبیل و اتوبوس" },
+                    { 7, "\\UserTemplate\\images\\icon\\7.png", 1, "موتور سیکلت و اسکوتر" },
+                    { 8, "\\UserTemplate\\images\\icon\\8.png", 3, "رهن خانه" },
+                    { 9, "\\UserTemplate\\images\\icon\\9.png", 3, "اجاره خانه و آپارتمان" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Address", "CityId", "Email", "FirstName", "ImagePath", "LastName", "Mobile", "Password", "RegisterAt", "RoleId", "UserName" },
-                values: new object[] { 1, null, 1, "Admin@Admin.com", "Masoud", null, "Maleki", "09123456789", "123456", new DateTime(2025, 1, 18, 22, 11, 4, 345, DateTimeKind.Local).AddTicks(7115), 1, "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisements_BrandId",
@@ -296,6 +425,55 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_CityId",
+                table: "AspNetUsers",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_RoleId",
+                table: "AspNetUsers",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentId",
                 table: "Categories",
                 column: "ParentId");
@@ -304,16 +482,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 name: "IX_Images_AdvertisementId",
                 table: "Images",
                 column: "AdvertisementId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_CityId",
-                table: "Users",
-                column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UsersFavoriteAdvertisements_AdvertisementId",
@@ -325,22 +493,40 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
                 name: "UsersFavoriteAdvertisements");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Advertisements");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Brands");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Cities");

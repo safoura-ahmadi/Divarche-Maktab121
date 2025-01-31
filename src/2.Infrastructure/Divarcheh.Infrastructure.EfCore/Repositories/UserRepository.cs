@@ -76,7 +76,7 @@ public class UserRepository : IUserRepository
             user.Email = model.Email;
             user.CityId = model.CityId;
             user.RoleId = model.RoleId;
-            user.Password = model.Password;
+          //  user.Password = model.Password;
             user.RegisterAt = DateTime.Now;
             user.Address = model.Address;
 

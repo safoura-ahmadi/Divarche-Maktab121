@@ -3,10 +3,12 @@ using Divarcheh.Domain.Core.Entities.User;
 using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.Advertisement;
 using Divarcheh.Infrastructure.EfCore.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Divarcheh.Infrastructure.EfCore.Common
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User,IdentityRole<int>,int>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -15,13 +17,13 @@ namespace Divarcheh.Infrastructure.EfCore.Common
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AdvertisementConfigurations());
+           // modelBuilder.ApplyConfiguration(new AdvertisementConfigurations());
             modelBuilder.ApplyConfiguration(new CategoryConfigurations());
             modelBuilder.ApplyConfiguration(new BrandConfigurations());
-            modelBuilder.ApplyConfiguration(new ImageConfigurations());
+           // modelBuilder.ApplyConfiguration(new ImageConfigurations());
             modelBuilder.ApplyConfiguration(new CityConfigurations());
             modelBuilder.ApplyConfiguration(new RoleConfigurations());
-            modelBuilder.ApplyConfiguration(new UserConfigurations());
+           // modelBuilder.ApplyConfiguration(new UserConfigurations());
             modelBuilder.ApplyConfiguration(new UsersFavoriteAdvertisementsConfigurations());
 
             base.OnModelCreating(modelBuilder);

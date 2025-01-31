@@ -1,3 +1,5 @@
+using Divarcheh.Domain.AppServices;
+using Divarcheh.Domain.Core.Contracts.AppService;
 using Divarcheh.Domain.Core.Entities.Configs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,7 +14,7 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Account.Pages
 
     }
 
-    public class LoginModel(SiteSettings siteSettings) : PageModel
+    public class LoginModel(SiteSettings siteSettings , IUserAppService userAppService) : PageModel
     {
 
         [BindProperty]
@@ -20,31 +22,12 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Account.Pages
 
         public IActionResult OnGet()
         {
-            HttpContext.Request.Cookies.TryGetValue("ApiKey", out var apiKey);
-
-            if (apiKey == siteSettings.ApiKey)
-            {
-               return RedirectToPage("Logout");
-            }
-
             return Page();
-
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            if (PageModel.Username.ToUpper() == "Admin".ToUpper() && PageModel.Password.ToUpper() == "Admin".ToUpper())
-            {
-                var apiKey = siteSettings.ApiKey;
-
-                HttpContext.Response.Cookies.Append("ApiKey", apiKey, new CookieOptions()
-                {
-                    Expires = DateTime.Now.AddHours(24)
-                });
-
-                return RedirectToPage("Index");
-            }
-
+            await userAppService.Login(PageModel.Username, PageModel.Password);
             return RedirectToPage("Login");
         }
     }

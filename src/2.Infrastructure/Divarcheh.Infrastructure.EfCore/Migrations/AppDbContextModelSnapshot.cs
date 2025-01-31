@@ -56,8 +56,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -68,8 +67,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -87,81 +85,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Advertisements", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AdvertisementFinalStatus = 2,
-                            AdvertisementStatus = 0,
-                            AdvertisementType = 2,
-                            ApprovedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BrandId = 1,
-                            CategoryId = 8,
-                            CityId = 1,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9551),
-                            Description = "Description",
-                            Model = "2021",
-                            Price = 50000,
-                            Title = "اپل تی وی - بهترین تلویزیون دنیا",
-                            UserId = 1,
-                            VisitCount = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AdvertisementFinalStatus = 2,
-                            AdvertisementStatus = 0,
-                            AdvertisementType = 2,
-                            ApprovedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BrandId = 2,
-                            CategoryId = 9,
-                            CityId = 5,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9562),
-                            Description = "Description",
-                            Model = "2022",
-                            Price = 80000,
-                            Title = "مبلمان پارچه ، مبلمان دستباف دست ساز",
-                            UserId = 1,
-                            VisitCount = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AdvertisementFinalStatus = 2,
-                            AdvertisementStatus = 0,
-                            AdvertisementType = 2,
-                            ApprovedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BrandId = 4,
-                            CategoryId = 8,
-                            CityId = 10,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9564),
-                            Description = "Description",
-                            Model = "2024",
-                            Price = 70000,
-                            Title = "ریک مورتون- مگیسیوس چیس",
-                            UserId = 1,
-                            VisitCount = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AdvertisementFinalStatus = 2,
-                            AdvertisementStatus = 0,
-                            AdvertisementType = 2,
-                            ApprovedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BrandId = 3,
-                            CategoryId = 6,
-                            CityId = 10,
-                            CreateAt = new DateTime(2025, 1, 28, 23, 1, 41, 184, DateTimeKind.Local).AddTicks(9566),
-                            Description = "Description",
-                            Model = "2024",
-                            Price = 70000,
-                            Title = "سامسونگ گلکسی اس 10",
-                            UserId = 1,
-                            VisitCount = 0
-                        });
+                    b.ToTable("Advertisements");
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.Advertisement.Brand", b =>
@@ -463,46 +387,13 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AdvertisementId");
 
-                    b.ToTable("Images", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AdvertisementId = 1,
-                            Path = "Images/trending/1.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AdvertisementId = 2,
-                            Path = "Images/trending/2.jpg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AdvertisementId = 2,
-                            Path = "Images/trending/4.jpg"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AdvertisementId = 3,
-                            Path = "Images/trending/3.jpg"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AdvertisementId = 4,
-                            Path = "Images/trending/5.jpg"
-                        });
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.Role", b =>
@@ -543,16 +434,25 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -563,15 +463,32 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Mobile")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("RegisterAt")
                         .HasColumnType("datetime2");
@@ -579,32 +496,31 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
+                    b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CityId = 1,
-                            Email = "Admin@Admin.com",
-                            FirstName = "Masoud",
-                            LastName = "Maleki",
-                            Mobile = "09123456789",
-                            Password = "123456",
-                            RegisterAt = new DateTime(2025, 1, 28, 23, 1, 41, 185, DateTimeKind.Local).AddTicks(5289),
-                            RoleId = 1,
-                            UserName = "Admin"
-                        });
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.UsersFavoriteAdvertisements", b =>
@@ -620,6 +536,139 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.HasIndex("AdvertisementId");
 
                     b.ToTable("UsersFavoriteAdvertisements");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.Advertisement.Advertisement", b =>
@@ -645,7 +694,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.HasOne("Divarcheh.Domain.Core.Entities.User.User", "User")
                         .WithMany("UserAdvertisements")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -672,7 +721,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.HasOne("Divarcheh.Domain.Core.Entities.Advertisement.Advertisement", "Advertisement")
                         .WithMany("Images")
                         .HasForeignKey("AdvertisementId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Advertisement");
@@ -714,6 +763,57 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.Navigation("Advertisement");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.Advertisement.Advertisement", b =>
