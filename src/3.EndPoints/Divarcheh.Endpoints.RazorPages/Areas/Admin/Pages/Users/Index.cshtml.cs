@@ -20,7 +20,10 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         public List<UserSummaryDto> users { get; set; }
    
         public void OnGet()
+        
         {
+            var data = User;
+
             users = _userAppService.GetAll();
         }
 

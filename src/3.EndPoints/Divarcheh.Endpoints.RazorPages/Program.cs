@@ -11,7 +11,9 @@ using Divarcheh.Infrastructure.EfCore.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Divarcheh.Domain.Core.Entities.User;
+using Divarcheh.Endpoints.RazorPages;
 using Framework;
+using Hangfire;
 
 
 //27473c23-4628-41b2-aaa7-7515e5350077
@@ -51,7 +53,11 @@ builder.Services.AddScoped<IDashboardAppService, DashboardAppService>();
 
 #endregion
 
+builder.Services
+    .AddHangfire(x => 
+        x.UseSqlServerStorage(siteSettings.ConnectionStrings.HangfireConnectionString));
 
+builder.Services.AddHangfireServer();
 
 // Add services to the container.
 builder.Services.AddRazorPages()
@@ -73,7 +79,6 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
         options.Password.RequireLowercase = false;
     })
     .AddRoles<IdentityRole<int>>()
-    .AddErrorDescriber<PersianIdentityErrorDescriber>()
     .AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
@@ -88,7 +93,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 //app.UseMiddleware<ExceptionMiddleware>();
-
+app.MapHangfireDashboard();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -99,5 +104,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+RecurringJob
+    .AddOrUpdate<MyServices>(x=>x.RemoveLogs(), "0 2 1 * *");
 
 app.Run();

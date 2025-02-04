@@ -1,6 +1,10 @@
-﻿
+﻿@using Divarcheh.Domain.Core.Entities.User
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
    @await RenderSectionAsync("Scripts", required: false)
-   
+   @inject SignInManager<User> SignInManager
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,27 +106,34 @@
 				</div>
 
 				<div class="nav-right">
-					<div class="dropdown language-dropdown">
-						<i class="fa fa-globe"></i>
-						<a data-toggle="dropdown" href="#"><span class="change-text">ایران</span> <i class="fa fa-angle-down"></i></a>
-						<ul class="dropdown-menu language-change">
-							<li><a href="#">ایران</a></li>
-							<li><a href="#">عراق</a></li>
-							<li><a href="#">چین</a></li>
-							<li><a href="#">روسیه</a></li>
-						</ul>
-					</div><!-- language-dropdown -->
                     <!-- sign-in -->
-					@if (!User.Identity.IsAuthenticated)
-                    {
-                        <ul class="sign-in">
-                            <li><i class="fa fa-user"></i></li>
-                            <li><a href="signin.html">ورود</a></li>
-                            <li><a href="signup.html">ثبت‌نام</a></li>
-                        </ul><!-- sign-in -->
-                    }
 
-					<a href="ad-post.html" class="btn">افزودن آگهی شما</a>
+
+					<ul class="sign-in">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Account" asp-page="/Profile" title="پروفایل">Welcome @User.Identity?.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" >
+									<button asp-area="Account" asp-page="Logout"  class="nav-link btn btn-link text-dark">خروج</button>
+                                </form>
+                            </li>
+                        }
+
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="Register">ثبت نام</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Account" asp-page="/Login">ورود</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <a href="ad-post.html" class="btn">افزودن آگهی شما</a>
 				</div>
 
 			</div><!-- container -->

@@ -9,5 +9,5 @@ public interface IUserAppService
     Task<IdentityResult> Register(UserDto model,CancellationToken cancellationToken);
     UserDto GetById(int id);
     Task<bool> Update(UserDto model,CancellationToken cancellationToken);
-    Task<IdentityResult> Login(string username, string password);
+    Task<IdentityResult> Login(string username, string password,bool rememberMe);
 }

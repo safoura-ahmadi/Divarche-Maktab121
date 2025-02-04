@@ -1,0 +1,60 @@
+﻿@page
+@using Divarcheh.Domain.Core.Contracts.Service
+@model Divarcheh.Endpoints.RazorPages.Pages.RegisterModel
+@{
+}
+
+@inject IBaseDataService _BaseDataService;
+
+<section id="main" class="clearfix user-page">
+    <div class="container">
+        <div class="row text-center">
+            <!-- user-login -->			
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <div class="user-account">
+                    <h2>ساخت اکانت</h2>
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                        <div class="form-group">
+                            <input asp-for="User.FirstName" type="text" class="form-control" placeholder="نام">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="User.LastName" type="text" class="form-control" placeholder="نام خانوادگی">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="User.UserName" type="text" class="form-control" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="User.Email" type="email" class="form-control" placeholder="ایمیل">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="User.Password" type="password" class="form-control" placeholder="رمزعبور">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="User.RePassword" type="password" class="form-control" placeholder="تایید رمزعبور ">
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="User.Mobile" type="text" class="form-control" placeholder="شماره موبایل">
+                        </div>
+                        <!-- select -->
+                        <select asp-for="User.CityId" class="form-control">
+                            <option value="#">انتخاب شهر</option>
+                            @foreach (var city in await _BaseDataService.GetCities(default))
+                            {
+                                <option value="@city.Id">@city.Title</option>
+                            }
+                        </select><!-- select -->
+
+                        <div class="checkbox">
+                            <label class="pull-left checked" for="signing"><input type="checkbox" name="signing" id="signing"> با ثبت نام اقرار میکنم تمامی قوانین و مقررات سایت را قبول کرده‌ام </label>
+                        </div><!-- checkbox -->
+                        <button type="submit" class="btn">ثبت‌نام</button>
+                    </form>
+                    <!-- checkbox -->
+
+                </div>
+            </div><!-- user-login -->			
+        </div><!-- row -->	
+    </div><!-- container -->
+</section><!-- signup-page -->

@@ -3,4 +3,5 @@
 public class ConnectionStrings
 {
     public string SqlConnection { get; set; }
+    public string HangfireConnectionString { get; set; }
 }
