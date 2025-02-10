@@ -396,7 +396,7 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.Role", b =>
+            modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.Advertiser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -404,26 +404,12 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("Balance")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Title = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Title = "User"
-                        });
+                    b.ToTable("Advertiser");
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.User", b =>
@@ -439,6 +425,9 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("AdvertiserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
@@ -506,7 +495,12 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("VisitorId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AdvertiserId");
 
                     b.HasIndex("CityId");
 
@@ -518,9 +512,31 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("VisitorId");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            CityId = 1,
+                            ConcurrencyStamp = "69592718-b4f5-4ee4-bb20-4beff0efad53",
+                            Email = "Admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            Mobile = "09377507920",
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHNv2nTTEAcWuKXcOdFopcsybAkYvCJ+XBN2OKcw4yM3trKE5s6R+bY1uAuzWC5wsg==",
+                            PhoneNumberConfirmed = false,
+                            RegisterAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = 1,
+                            SecurityStamp = "cfa679c9-6945-419c-91e5-32a010c73ae4",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.UsersFavoriteAdvertisements", b =>
@@ -536,6 +552,25 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.HasIndex("AdvertisementId");
 
                     b.ToTable("UsersFavoriteAdvertisements");
+                });
+
+            modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.Visitor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("LastVisit")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("VisitCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Visitor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -566,6 +601,26 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Visitor",
+                            NormalizedName = "VISITOR"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Advertiser",
+                            NormalizedName = "ADVERTISER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -650,6 +705,13 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -729,21 +791,25 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.User", b =>
                 {
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.Advertiser", "Advertiser")
+                        .WithMany()
+                        .HasForeignKey("AdvertiserId");
+
                     b.HasOne("Divarcheh.Domain.Core.Entities.BaseEntities.City", "City")
                         .WithMany("Users")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Divarcheh.Domain.Core.Entities.User.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.HasOne("Divarcheh.Domain.Core.Entities.User.Visitor", "Visitor")
+                        .WithMany()
+                        .HasForeignKey("VisitorId");
+
+                    b.Navigation("Advertiser");
 
                     b.Navigation("City");
 
-                    b.Navigation("Role");
+                    b.Navigation("Visitor");
                 });
 
             modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.UsersFavoriteAdvertisements", b =>
@@ -839,11 +905,6 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 {
                     b.Navigation("Advertisements");
 
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Divarcheh.Domain.Core.Entities.User.Role", b =>
-                {
                     b.Navigation("Users");
                 });
 

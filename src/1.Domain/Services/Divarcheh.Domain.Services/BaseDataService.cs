@@ -19,8 +19,6 @@ namespace Divarcheh.Domain.Services
 
         public async Task<List<City>> GetCities(CancellationToken cancellationToken)
             => await _baseDataRepository.GetCities(cancellationToken);
-        public async Task<List<Role>> GetRoles(CancellationToken cancellationToken)
-            => await _baseDataRepository.GetRoles(cancellationToken);
 
         public async Task<string> UploadImage(IFormFile FormFile , string folderName , CancellationToken cancellation)
         {

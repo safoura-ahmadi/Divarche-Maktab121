@@ -14,6 +14,19 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Advertiser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Balance = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Advertiser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -75,16 +88,17 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "Visitor",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    VisitCount = table.Column<int>(type: "int", nullable: false),
+                    LastVisit = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_Visitor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,6 +136,8 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VisitorId = table.Column<int>(type: "int", nullable: true),
+                    AdvertiserId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -141,14 +157,19 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_AspNetUsers_Advertiser_AdvertiserId",
+                        column: x => x.AdvertiserId,
+                        principalTable: "Advertiser",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_AspNetUsers_Cities_CityId",
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
+                        name: "FK_AspNetUsers_Visitor_VisitorId",
+                        column: x => x.VisitorId,
+                        principalTable: "Visitor",
                         principalColumn: "Id");
                 });
 
@@ -327,6 +348,16 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, null, "Admin", "ADMIN" },
+                    { 2, null, "Visitor", "VISITOR" },
+                    { 3, null, "Advertiser", "ADVERTISER" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Brands",
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
@@ -385,13 +416,9 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "Title" },
-                values: new object[,]
-                {
-                    { 1, "Admin" },
-                    { 2, "User" }
-                });
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "AdvertiserId", "CityId", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "ImagePath", "LastName", "LockoutEnabled", "LockoutEnd", "Mobile", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RegisterAt", "RoleId", "SecurityStamp", "TwoFactorEnabled", "UserName", "VisitorId" },
+                values: new object[] { 1, 0, null, null, 1, "69592718-b4f5-4ee4-bb20-4beff0efad53", "Admin@gmail.com", false, null, null, null, false, null, "09377507920", "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEHNv2nTTEAcWuKXcOdFopcsybAkYvCJ+XBN2OKcw4yM3trKE5s6R+bY1uAuzWC5wsg==", null, false, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "cfa679c9-6945-419c-91e5-32a010c73ae4", false, "Admin@gmail.com", null });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -403,6 +430,11 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                     { 8, "\\UserTemplate\\images\\icon\\8.png", 3, "رهن خانه" },
                     { 9, "\\UserTemplate\\images\\icon\\9.png", 3, "اجاره خانه و آپارتمان" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Advertisements_BrandId",
@@ -457,14 +489,19 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_AdvertiserId",
+                table: "AspNetUsers",
+                column: "AdvertiserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_CityId",
                 table: "AspNetUsers",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_RoleId",
+                name: "IX_AspNetUsers_VisitorId",
                 table: "AspNetUsers",
-                column: "RoleId");
+                column: "VisitorId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -529,10 +566,13 @@ namespace Divarcheh.Infrastructure.EfCore.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "Advertiser");
+
+            migrationBuilder.DropTable(
                 name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Visitor");
         }
     }
 }

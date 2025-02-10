@@ -7,7 +7,6 @@ namespace Divarcheh.Domain.Core.Contracts.Service
     public interface IBaseDataService
     {
         Task<List<City>> GetCities(CancellationToken cancellationToken);
-        Task<List<Role>> GetRoles(CancellationToken cancellationToken);
         Task<string> UploadImage(IFormFile FormFile , string folderName , CancellationToken cancellationToken);
         Task<List<Brand>> GetBrands(CancellationToken cancellationToken);
 

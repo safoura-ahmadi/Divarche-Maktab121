@@ -2,6 +2,7 @@
 using Divarcheh.Domain.Core.Dto.User;
 using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.User;
+using Divarcheh.Domain.Core.Enum;
 using Divarcheh.Infrastructure.EfCore.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ public class UserRepository : IUserRepository
                 Email = u.Email,
                 RegisterAt = u.RegisterAt,
                 City = u.City.Title,
-                Role = u.Role.Title,
+                Role = (RoleEnum)u.RoleId,
                 ImagePath = u.ImagePath
             }).ToList();
 
@@ -41,7 +42,6 @@ public class UserRepository : IUserRepository
     {
         var user = _dbContext.Users
             .Include(x => x.City)
-            .Include(x => x.Role)
             .FirstOrDefault(x => x.Id == id);
 
         if (user is null) throw new Exception("user not found");
@@ -56,7 +56,7 @@ public class UserRepository : IUserRepository
         result.Email = user.Email;
         result.Address = user.Address;
         result.CityId = user.City.Id;
-        result.RoleId = user.Role.Id;
+        result.Role = (RoleEnum)user.RoleId;
         result.ImagePath = user.ImagePath;
 
         return result;
@@ -75,8 +75,6 @@ public class UserRepository : IUserRepository
             user.Mobile = model.Mobile;
             user.Email = model.Email;
             user.CityId = model.CityId;
-            user.RoleId = model.RoleId;
-          //  user.Password = model.Password;
             user.RegisterAt = DateTime.Now;
             user.Address = model.Address;
 
@@ -98,7 +96,6 @@ public class UserRepository : IUserRepository
     {
         var user = await _dbContext.Users
             .Include(x => x.City)
-            .Include(x => x.Role)
             .FirstOrDefaultAsync(x => x.Id == model.Id, cancellationToken);
 
         if (user is null) return false;
@@ -109,7 +106,6 @@ public class UserRepository : IUserRepository
         user.Mobile = model.Mobile;
         user.Email = model.Email;
         user.CityId = model.CityId;
-        user.RoleId = model.RoleId;
         user.Address = model.Address;
         user.ImagePath = model.ImagePath ?? user.ImagePath;
 

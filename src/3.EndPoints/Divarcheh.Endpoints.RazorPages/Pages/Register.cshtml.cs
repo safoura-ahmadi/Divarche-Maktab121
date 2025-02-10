@@ -14,7 +14,6 @@ namespace Divarcheh.Endpoints.RazorPages.Pages
         
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
-            User.RoleId = 2;
             var result = await userAppService.Register(User, cancellationToken);
 
             if (result.Succeeded)

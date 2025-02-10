@@ -1,5 +1,6 @@
 ﻿using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.User;
+using Divarcheh.Domain.Core.Enum;
 
 namespace Divarcheh.Domain.Core.Dto.User
 {
@@ -13,7 +14,7 @@ namespace Divarcheh.Domain.Core.Dto.User
         public string? Email { get; set; }
         public DateTime RegisterAt { get; set; }
         public string City { get; set; }
-        public string Role { get; set; }
+        public RoleEnum Role { get; set; }
         public string? ImagePath { get; set; }
     }
 }

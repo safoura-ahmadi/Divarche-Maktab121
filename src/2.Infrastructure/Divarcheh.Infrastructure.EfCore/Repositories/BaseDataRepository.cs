@@ -24,9 +24,6 @@ namespace Divarcheh.Infrastructure.EfCore.Repositories
         public async Task<List<City>> GetCities(CancellationToken cancellationToken)
             => await _dbContext.Cities.AsNoTracking().ToListAsync(cancellationToken);
 
-        public async Task<List<Role>> GetRoles(CancellationToken cancellationToken)
-            => await _dbContext.Roles.AsNoTracking().ToListAsync(cancellationToken);
-
         public async Task<List<Brand>> GetBrands(CancellationToken cancellationToken)
             => await _dbContext.Brands.AsNoTracking().ToListAsync(cancellationToken);
     }

@@ -5,6 +5,7 @@ using Divarcheh.Domain.Core.Entities.Advertisement;
 using Divarcheh.Infrastructure.EfCore.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using MaktabNews.Infrastructure.EfCore.Configurations;
 
 namespace Divarcheh.Infrastructure.EfCore.Common
 {
@@ -22,9 +23,10 @@ namespace Divarcheh.Infrastructure.EfCore.Common
             modelBuilder.ApplyConfiguration(new BrandConfigurations());
            // modelBuilder.ApplyConfiguration(new ImageConfigurations());
             modelBuilder.ApplyConfiguration(new CityConfigurations());
-            modelBuilder.ApplyConfiguration(new RoleConfigurations());
            // modelBuilder.ApplyConfiguration(new UserConfigurations());
             modelBuilder.ApplyConfiguration(new UsersFavoriteAdvertisementsConfigurations());
+
+            UserConfigurations.SeedUsers(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -35,7 +37,6 @@ namespace Divarcheh.Infrastructure.EfCore.Common
         public DbSet<Brand> Brands { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Image> Images { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

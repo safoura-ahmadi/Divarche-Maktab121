@@ -24,12 +24,9 @@ namespace Divarcheh.Endpoints.RazorPages.Areas.Admin.Pages.Users
         [BindProperty]
         public List<City> Cities { get; set; }
 
-        [BindProperty]
-        public List<Role> Roles { get; set; }
         public async Task OnGet(CancellationToken cancellationToken)
         {
             Cities = await _baseDataAppService.GetCities(cancellationToken);
-            Roles = await _baseDataAppService.GetRoles(cancellationToken);
         }
 
 

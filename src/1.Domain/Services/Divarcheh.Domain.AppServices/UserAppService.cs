@@ -5,6 +5,7 @@ using Divarcheh.Domain.Core.Entities.BaseEntities;
 using Divarcheh.Domain.Core.Entities.User;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Divarcheh.Domain.Core.Enum;
 
 namespace Divarcheh.Domain.AppServices;
 public class UserAppService : IUserAppService
@@ -41,14 +42,33 @@ public class UserAppService : IUserAppService
             Email = model.Email,
             Mobile = model.Mobile,
             CityId = model.CityId,
-            RoleId = model.RoleId,
         };
 
-        if (model.RoleId == 1) role = "Admin";
-        if (model.RoleId == 2) role = "user";
+        if (model.Role == RoleEnum.Admin)
+        {
+            role = "Admin";
+        }
+
+        if (model.Role == RoleEnum.Visitor)
+        {
+            role = "Visitor";
+            user.Visitor = new Visitor()
+            {
+                VisitCount = 1,
+                LastVisit = DateTime.Now
+            };
+        }
+
+        if (model.Role == RoleEnum.Advertiser)
+        {
+            role = "Advertiser";
+            user.Advertiser = new Advertiser()
+            {
+               Balance = 1000
+            };
+        }
 
         var result = await _userManager.CreateAsync(user, model.Password);
-
 
         if (result.Succeeded)
         {
@@ -58,6 +78,18 @@ public class UserAppService : IUserAppService
             }
 
             await _userManager.AddToRoleAsync(user, role);
+
+
+            if (model.Role == RoleEnum.Visitor)
+            {
+               await _userManager.AddClaimAsync(user, new Claim("VisitorId", user.Visitor.Id.ToString()));
+            }
+
+            if (model.Role == RoleEnum.Advertiser)
+            {
+                await _userManager.AddClaimAsync(user, new Claim("AdvertiserId", user.Advertiser.Id.ToString()));
+            }
+
             await _signInManager.PasswordSignInAsync(user.UserName, model.Password, true, false);
 
         }

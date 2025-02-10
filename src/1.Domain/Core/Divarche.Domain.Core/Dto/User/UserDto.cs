@@ -1,6 +1,4 @@
-﻿using Divarcheh.Domain.Core.Entities.Advertisement;
-using Divarcheh.Domain.Core.Entities.BaseEntities;
-using Divarcheh.Domain.Core.Entities.User;
+﻿using Divarcheh.Domain.Core.Enum;
 using Microsoft.AspNetCore.Http;
 
 namespace Divarcheh.Domain.Core.Dto.User
@@ -19,7 +17,7 @@ namespace Divarcheh.Domain.Core.Dto.User
         public string? Email { get; set; }
         public string? Address { get; set; }
         public int CityId { get; set; }
-        public int RoleId { get; set; }
+        public RoleEnum Role { get; set; }
         public IFormFile? ProfileImgFile { get; set; }
 
         public string? ImagePath { get; set; }

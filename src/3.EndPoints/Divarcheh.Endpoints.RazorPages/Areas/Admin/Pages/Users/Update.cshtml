@@ -78,11 +78,12 @@
 
                         <div class="form-group">
                             <div class="input-group">
-                                <select asp-for="User.RoleId" class="form-select">
-                                    @foreach (var role in await @BaseDataAppService.GetRoles(default))
-                                    {
-                                        <option value="@role.Id">@role.Title</option>
-                                    }
+                                <select asp-for="User.Role" class="form-select">
+                                    <select asp-for="User.Role" class="form-select">
+                                        <option value="1">Admin</option>
+                                        <option value="2">Visitor</option>
+                                        <option value="3">Advertiser</option>
+                                    </select>
                                 </select>
                             </div>
                         </div>

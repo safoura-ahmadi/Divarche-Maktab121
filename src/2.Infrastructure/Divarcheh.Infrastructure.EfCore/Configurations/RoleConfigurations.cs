@@ -12,15 +12,12 @@ namespace Divarcheh.Infrastructure.EfCore.Configurations
             builder.ToTable("Roles");
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
 
-            builder.HasMany(x => x.Users)
-                .WithOne(x => x.Role)
-                .HasForeignKey(x => x.RoleId)
-                .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasData(new List<Role>()
             {
                 new Role() {Id = 1 ,Title = "Admin"},
-                new Role() {Id = 2 ,Title = "User"},
+                new Role() {Id = 2 ,Title = "Visitor"},
+                new Role() {Id = 3 ,Title = "Advertiser"},
+
             });
 
         }

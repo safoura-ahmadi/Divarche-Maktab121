@@ -16,7 +16,5 @@ namespace Divarcheh.Domain.AppServices
 
         public async Task<List<City>> GetCities(CancellationToken cancellationToken) 
             => await _baseDataService.GetCities(cancellationToken);
-        public async Task<List<Role>> GetRoles(CancellationToken cancellationToken) 
-            => await _baseDataService.GetRoles(cancellationToken);
     }
 }
